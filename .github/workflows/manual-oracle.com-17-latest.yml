@@ -1,5 +1,3 @@
-name: Oracle JDK 17 (latest)
-
 on:
   workflow_dispatch:
 
