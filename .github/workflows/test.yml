@@ -1,0 +1,20 @@
+on:
+  push:
+    branches: [ main, 'v*' ]
+  pull_request:
+    branches: [ '*' ]
+
+jobs:
+  test:
+    name: "Test"
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Check out repository'
+        uses: actions/checkout@v2
+      - name: 'Print default Java version'
+        run: java -version
+      - name: 'Compile and run test'
+        shell: bash
+        run: |
+          javac -d classes src/Download.java test/Test.java
+          java -cp classes Test
