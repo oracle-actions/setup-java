@@ -33,3 +33,7 @@ steps:
     feature: 17
     version: 17.0.1
 ```
+
+## Status
+
+[![.github/workflows/test.yml](https://github.com/oracle-actions/setup-java/actions/workflows/test.yml/badge.svg)](https://github.com/oracle-actions/setup-java/actions/workflows/test.yml)
