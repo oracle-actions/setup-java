@@ -281,7 +281,7 @@ public class Download {
       var file = uri.substring(uri.lastIndexOf('/') + 1);
       var home = System.getProperty("user.home");
       var hash = Integer.toHexString(uri.hashCode());
-      var cache = Path.of(home, ".setup-jdk", hash);
+      var cache = Path.of(home, ".oracle-actions", "setup-java", hash);
       return cache.resolve(file);
     }
 
