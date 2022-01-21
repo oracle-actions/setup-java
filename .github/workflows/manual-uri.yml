@@ -1,0 +1,45 @@
+name: Manual (uri)
+
+on:
+  workflow_dispatch:
+    inputs:
+      os:
+        description: 'The type of machine to run the job on'
+        default: 'ubuntu-latest'
+        required: true
+        type: choice
+        options:
+          - 'ubuntu-latest'
+          - 'macos-latest'
+          - 'windows-latest'
+      uri:
+        description: 'URI of JDK archive file to download'
+        required: true
+        type: string
+      run-setup-java:
+        description: 'Run actions/setup-java to install the downloaded JDK'
+        default: 'true'
+        required: true
+        type: boolean
+
+jobs:
+  test:
+    name: "Setup JDK from URI on ${{ github.event.inputs.os }}"
+    runs-on: ${{ github.event.inputs.os }}
+    steps:
+      - name: 'Check out repository'
+        uses: actions/checkout@v2
+      - name: 'Set up JDK'
+        id: setup
+        uses: ./
+        with:
+          uri: ${{ github.event.inputs.uri }}
+          run-setup-java: ${{ github.event.inputs.run-setup-java }}
+      - name: 'Print outputs'
+        shell: bash
+        run: |
+          echo 'Outputs'
+          echo "steps.setup.outputs.archive = ${{ steps.setup.outputs.archive }}"
+          echo "steps.setup.outputs.version = ${{ steps.setup.outputs.version }}"
+      - name: 'Print Java version'
+        run: java -version

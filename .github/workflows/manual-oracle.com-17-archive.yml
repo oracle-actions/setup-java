@@ -1,0 +1,34 @@
+name: Oracle JDK 17 (archive)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  archive:
+    name: "Archived JDK ${{ matrix.version }} on ${{ matrix.os }}"
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        os: [ ubuntu-latest , macos-latest, windows-latest ]
+        feature: [ 17 ]
+        version: [ 17, 17.0.1 ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: 'Check out repository'
+        uses: actions/checkout@v2
+      - name: 'Set up JDK'
+        id: setup
+        uses: ./
+        with:
+          website: oracle.com
+          feature: ${{ matrix.feature }}
+          version: ${{ matrix.version }}
+      - name: 'Print outputs'
+        shell: bash
+        run: |
+          echo 'Outputs'
+          echo "steps.setup.outputs.archive = ${{ steps.setup.outputs.archive }}"
+          echo "steps.setup.outputs.version = ${{ steps.setup.outputs.version }}"
+      - name: 'Print Java version'
+        run: java --version

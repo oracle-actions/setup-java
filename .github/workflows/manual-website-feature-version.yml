@@ -1,0 +1,56 @@
+name: Manual (website, feature, version)
+
+on:
+  workflow_dispatch:
+    inputs:
+      website:
+        description: 'Site to download JDK from'
+        default: 'oracle.com'
+        required: true
+        type: choice
+        options:
+          - 'oracle.com'
+      feature:
+        description: 'Release feature number or project name'
+        default: '17'
+        required: true
+        type: string
+      version:
+        description: 'Version'
+        default: 'latest'
+        required: true
+        type: string
+      run-setup-java:
+        description: 'Run actions/setup-java to install the downloaded JDK'
+        default: 'true'
+        required: true
+        type: boolean
+
+jobs:
+  test:
+    name: "JDK ${{ github.event.inputs.feature }} (${{ github.event.inputs.version }}) on ${{ matrix.os }}"
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: 'Check out repository'
+        uses: actions/checkout@v2
+      - name: 'Set up JDK'
+        id: setup
+        uses: ./
+        with:
+          website: ${{ github.event.inputs.website }}
+          feature: ${{ github.event.inputs.feature }}
+          version: ${{ github.event.inputs.version }}
+          run-setup-java: ${{ github.event.inputs.run-setup-java }}
+      - name: 'Print outputs'
+        shell: bash
+        run: |
+          echo 'Outputs'
+          echo "steps.setup.outputs.archive = ${{ steps.setup.outputs.archive }}"
+          echo "steps.setup.outputs.version = ${{ steps.setup.outputs.version }}"
+      - name: 'Print Java version'
+        run: java -version

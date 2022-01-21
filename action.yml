@@ -1,0 +1,57 @@
+name: 'Setup Oracle JDK'
+description: 'Download and set up a JDK built by Oracle'
+
+branding:
+  icon: 'download-cloud'
+  color: 'red'
+
+inputs:
+  website:
+    description: 'Site to download JDK from: `oracle.com`'
+    required: true
+    default: 'oracle.com'
+  feature:
+    description: 'Feature number or project name, defaults to `17`'
+    required: true
+    default: '17'
+  version:
+    description: 'Additional version information, defaults to `latest`'
+    required: true
+    default: 'latest'
+  run-setup-java:
+    description: 'Run actions/setup-java as part of this action in order to install the downloaded JDK archive file'
+    required: true
+    default: 'true'
+  uri:
+    description: 'URI of JDK archive file to download'
+    required: false
+
+outputs:
+  archive:
+    description: 'The path to the downloaded JDK archive file'
+    value: ${{ steps.download.outputs.archive }}
+  version:
+    description: 'The version of the downloaded JDK'
+    value: ${{ steps.download.outputs.version }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: 'Download Java Development Kit'
+      id: download
+      shell: bash
+      run: |
+        JAVA=$JAVA_HOME_11_X64/bin/java
+        DOWNLOAD=$GITHUB_ACTION_PATH/src/Download.java
+        if [ ! -z "${{ inputs.uri }}" ]; then
+          $JAVA $DOWNLOAD ${{ inputs.uri }}
+        else
+          $JAVA $DOWNLOAD ${{ inputs.website }} ${{ inputs.feature }} ${{ inputs.version }}
+        fi
+    - name: 'Set up Java Development Kit'
+      if: ${{ inputs.run-setup-java  == 'true' }}
+      uses: actions/setup-java@v2
+      with:
+        java-version: ${{ steps.download.outputs.version }}
+        distribution: jdkfile
+        jdkFile: ${{ steps.download.outputs.archive }}
