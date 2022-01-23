@@ -2,6 +2,7 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.StringReader;
 import java.io.UncheckedIOException;
 import java.math.BigInteger;
 import java.net.URI;
@@ -17,6 +18,8 @@ import java.security.Security;
 import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Optional;
+import java.util.Properties;
+import java.util.StringJoiner;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 
@@ -268,6 +271,9 @@ public class Download {
       if (hint.equals(OracleComWebsite.NAME) || hint.startsWith(OracleComWebsite.URI_PREFIX)) {
         return Optional.of(new OracleComWebsite());
       }
+      if (hint.equals(JavaNetWebsite.NAME) || hint.startsWith(JavaNetWebsite.URI_PREFIX)) {
+        return Optional.of(new JavaNetWebsite());
+      }
       return Optional.empty();
     }
 
@@ -351,6 +357,41 @@ public class Download {
     String computeArchiveUri(JDK jdk) {
       var format = URI_PREFIX + "%s/archive/jdk-%s_%s-%s_bin.%s";
       return String.format(format, jdk.feature, jdk.version, jdk.os, jdk.arch, jdk.type);
+    }
+  }
+
+  /** JDK builds hosted at {@code https://jdk.java.net}. */
+  static class JavaNetWebsite implements Website {
+    static String NAME = "java.net";
+    static String URI_PREFIX = "https://download.java.net";
+
+    @Override
+    public List<Pattern> parseVersionPatterns() {
+      return List.of(Pattern.compile("\\Q" + URI_PREFIX + "\\E.+?/openjdk-([\\d.]+).+"));
+    }
+
+    @Override
+    public Optional<String> findUri(JDK jdk) {
+      var key =
+          new StringJoiner(",")
+              .add(jdk.feature)
+              .add(jdk.version)
+              .add(jdk.os)
+              .add(jdk.arch)
+              .toString();
+      try {
+        var browser = new Browser();
+        var s =
+            browser.browse(
+                "https://raw.githubusercontent.com"
+                    + "/sormuras/jdk-java-net-overlay/main" // user/repo/branch
+                    + "/jdk-uri.properties");
+        var properties = new Properties();
+        properties.load(new StringReader(s));
+        return Optional.ofNullable(properties.getProperty(key));
+      } catch (Exception exception) {
+        return Optional.empty();
+      }
     }
   }
 }

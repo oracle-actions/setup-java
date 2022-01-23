@@ -10,6 +10,7 @@ These include the following labels: `ubuntu-latest`, `macos-latest`, and `window
 ## Supported Download Sites
 
 - [`oracle.com`](https://oracle.com) for JDK 17 and later
+- [`java.net`](https://jdk.java.net) for current GA and EA builds, for example JDK 19-ea and Loom, Panama, and Valhalla
 
 ## Examples for `oracle.com`
 
@@ -21,7 +22,6 @@ Leveraging [JDK Script Friendly URLs](https://www.oracle.com/java/technologies/j
   with:
     website: oracle.com
     feature: 17
-    version: latest
 ```
 
 ```yaml
@@ -32,6 +32,24 @@ steps:
     website: oracle.com
     feature: 17
     version: 17.0.1
+```
+
+## Examples for `java.net`
+
+```yaml
+- name: 'Set up latest OpenJDK N from jdk.java.net'
+  uses: sormuras/setup-jdk@main
+   with:
+    website: java.net
+    feature: N # Replace N with GA, EA, 17, 18, 19, ...
+```
+
+```yaml
+- name: 'Set up Early-Access build of a named project from jdk.java.net'
+  uses: oracle-actions/setup-java@VERSION
+   with:
+    website: java.net
+    feature: Loom # or Panama, Valhalla, ...
 ```
 
 ## Status
