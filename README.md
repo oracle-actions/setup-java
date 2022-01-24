@@ -4,16 +4,16 @@ This action downloads a JDK built by Oracle (Oracle JDK or Oracle OpenJDK build)
 
 ## Supported GitHub Actions Virtual Environments
 
-All [environments](https://github.com/actions/virtual-environments#available-environments) that have Java 11 preinstalled are supported.
+All [environments](https://github.com/actions/virtual-environments#available-environments) that have Java 11 pre-installed are supported.
 These include the following labels: `ubuntu-latest`, `macos-latest`, and `windows-latest`.
 
 ## Inputs
 
 ### `source` Download Site
 
-The `source` download site input is set by detailt to `oracle.com`.
+This `input` specifices from where the JDK build should be download from, it is set by detailt to `oracle.com`.
 
-Supported source download sites are:
+The following source download sites are supported:
 
 - [`oracle.com`](https://oracle.com) (default) for Oracle JDK 17 (NTFC) and later
 - [`java.net`](https://jdk.java.net) for the current OpenJDK GA (General Aavailability) build and for OpenJDK EA (Early-Access) builds (GPL v2 w/CPE), for example JDK 19-ea, Loom, Panama, or Valhalla
@@ -25,39 +25,45 @@ The `feature` denotes either a Java feature release (ex. `17`, `18`, ...) or the
 ### `version` Additional Version Information
 
 The `version` inputs defaults to `latest`.
-It can be used to specify an explicit version of a Java release, like `17.0.1`.
+It can be used to specify an explicit version of a Java release, ex. `17.0.1`.
 
 ### `install` Flag
 
-This action uses [`actions/setup-java`](https://github.com/actions/setup-java) to install Java.
+This action uses [`actions/setup-java`](https://github.com/actions/setup-java) to install the downloaded JDK.
 Pass `false` to override the default `true` value and skip the installation.
 
 ### `uri` Custom JDK
 
-This input downloads a JDK from the specified URI. The `website`, `feature`, and `version` inputs are ignored.
+Use this input to download a JDK from the specified URI. The `website`, `feature`, and `version` inputs are ignored.
 
 ## Examples for `oracle.com`
 
 The following examples use the [JDK Script Friendly URLs](https://www.oracle.com/java/technologies/jdk-script-friendly-urls/) to download and set up binaries that are made available under the [Oracle No-Fee Terms and Conditions License](https://www.java.com/freeuselicense/).
 
+#### Download and installs the latest version of the Oracle JDK.
+
 ```yaml
 steps:
-  - name: 'Set up latest OracleJDK 17'
+  - name: 'Set up latest Oracle JDK 17'
     uses: oracle-actions/setup-java@v1
     with:
       website: oracle.com
       feature: 17
 ```
 
+#### Download and installs a specific version of the Oracle JDK.
+
 ```yaml
 steps:
-  - name: 'Set up archived OracleJDK 17.0.1'
+  - name: 'Set up archived Oracle JDK 17.0.1'
     uses: oracle-actions/setup-java@v1
     with:
       website: oracle.com
       feature: 17
       version: 17.0.1
 ```
+
+Make sure to check this note regarding the [use of older builds](#warning).
 
 ## Examples for `java.net`
 
@@ -104,6 +110,11 @@ Run `java src/ListOpenJavaDevelopmentKits.java` to parse a set of default pages 
 Check [src/ListOpenJavaDevelopmentKits.java](src/ListOpenJavaDevelopmentKits.java) for details.
 
 Run `java src/ListOpenJavaDevelopmentKits.java PAGE [MORE...]` to parse <https://jdk.java.net/PAGE/> only and print key-value pairs found on that particular page.
+
+## :warning: <a id="warning"></a>Archived builds
+
+Older versions of the JDK are provided to help developers debug issues in older systems. **They are not updated with the latest security patches and are not recommended for use in production.**
+
 
 ## Status
 
