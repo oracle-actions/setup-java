@@ -380,13 +380,17 @@ public class Download {
               .add(jdk.arch)
               .toString();
       try {
+        var defaultProperties = new Properties();
+        var file = Path.of("jdk.java.net-uri.properties");
+        defaultProperties.load(new StringReader(Files.readString(file)));
+        var properties = new Properties(defaultProperties);
         var browser = new Browser();
         var s =
             browser.browse(
                 "https://raw.githubusercontent.com"
                     + "/oracle-actions/setup-java/main" // user/repo/branch
-                    + "/jdk.java.net-uri.properties");
-        var properties = new Properties();
+                    + "/"
+                    + file);
         properties.load(new StringReader(s));
         return Optional.ofNullable(properties.getProperty(key));
       } catch (Exception exception) {
