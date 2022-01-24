@@ -18,8 +18,8 @@ inputs:
     description: 'Additional version information, defaults to `latest`'
     required: true
     default: 'latest'
-  run-setup-java:
-    description: 'Run actions/setup-java as part of this action in order to install the downloaded JDK archive file'
+  install:
+    description: 'Install the downloaded JDK archive file by running actions/setup-java, default to `true`'
     required: true
     default: 'true'
   uri:
@@ -48,8 +48,8 @@ runs:
         else
           $JAVA $DOWNLOAD ${{ inputs.website }} ${{ inputs.feature }} ${{ inputs.version }}
         fi
-    - name: 'Set up Java Development Kit'
-      if: ${{ inputs.run-setup-java  == 'true' }}
+    - name: 'Install Java Development Kit'
+      if: ${{ inputs.install  == 'true' }}
       uses: actions/setup-java@v2
       with:
         java-version: ${{ steps.download.outputs.version }}

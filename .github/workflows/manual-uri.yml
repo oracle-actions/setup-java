@@ -14,7 +14,7 @@ on:
         description: 'URI of JDK archive file to download'
         required: true
         type: string
-      run-setup-java:
+      install:
         description: 'Run actions/setup-java to install the downloaded JDK'
         default: 'true'
         required: true
@@ -32,7 +32,7 @@ jobs:
         uses: ./
         with:
           uri: ${{ github.event.inputs.uri }}
-          run-setup-java: ${{ github.event.inputs.run-setup-java }}
+          install: ${{ github.event.inputs.install }}
       - name: 'Print outputs'
         shell: bash
         run: |
