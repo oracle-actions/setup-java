@@ -60,8 +60,8 @@ public class Test {
 
   static void checkJavaNetJDK(String feature, String version) {
     checkJDK("java.net", new Download.JDK(feature, version, "linux", "x64", "tar.gz"));
-    checkJDK("java.net", new Download.JDK(feature, version, "linux", "x64", "tar.gz"));
-    checkJDK("java.net", new Download.JDK(feature, version, "linux", "x64", "tar.gz"));
+    checkJDK("java.net", new Download.JDK(feature, version, "macos", "x64", "tar.gz"));
+    checkJDK("java.net", new Download.JDK(feature, version, "windows", "x64", "zip"));
   }
 
   static void checkJDK(String website, Download.JDK jdk) {
