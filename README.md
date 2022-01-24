@@ -40,7 +40,7 @@ Use this input to download a JDK from the specified URI. The `website`, `feature
 
 The following examples use the [JDK Script Friendly URLs](https://www.oracle.com/java/technologies/jdk-script-friendly-urls/) to download and set up binaries that are made available under the [Oracle No-Fee Terms and Conditions License](https://www.java.com/freeuselicense/).
 
-#### Download and installs the latest version of the Oracle JDK.
+#### Download and install the latest version of the Oracle JDK.
 
 ```yaml
 steps:
@@ -51,7 +51,7 @@ steps:
       feature: 17
 ```
 
-#### Download and installs a specific version of the Oracle JDK.
+#### Download and install a specific version of the Oracle JDK.
 
 ```yaml
 steps:
@@ -69,7 +69,7 @@ Make sure to check this note regarding the [use of older builds](#warning).
 
 The following examples download and install OpenJDK binaries that are made available under the [GNU General Public License, version 2, with the Classpath Exception](https://openjdk.java.net/legal/gplv2+ce.html).
 
-#### Download and installs the OpenJDK build of a given feature release
+#### Download and install the OpenJDK build of a given feature release
 
 ```yaml
 steps:
@@ -80,7 +80,7 @@ steps:
       feature: N # Replace N with GA, EA, 17, 18, 19, ...
 ```
 
-#### Download and installs the Early-Access build of a given OpenJDK project
+#### Download and install the Early-Access build of a given OpenJDK project
 
 ```yaml
 steps:
@@ -90,6 +90,10 @@ steps:
       website: java.net
       feature: Loom # or Panama, Valhalla, ...
 ```
+
+## Supported JDKs hosted at `oracle.com`
+
+This action only supports Oracle JDKs provided under the [Oracle No-Fee Terms and Conditions License](https://www.java.com/freeuselicense/).
 
 ## Supported JDKs hosted at `java.net`
 
