@@ -1,0 +1,22 @@
+on:
+  #schedule:
+  #  - cron: '23 */4 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-jdk-uri-properties:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: java src/ListOpenJavaDevelopmentKits.java > jdk.java.net-uri.properties
+      - run: |
+          git diff
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          if [ -z "$(git status --porcelain)" ]; then
+            echo 'No changes detected.'
+            exit 0
+          fi
+          git commit --message 'Update `jdk.java.net-uri.properties`'
+          git push

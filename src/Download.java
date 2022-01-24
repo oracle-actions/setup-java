@@ -384,8 +384,8 @@ public class Download {
         var s =
             browser.browse(
                 "https://raw.githubusercontent.com"
-                    + "/sormuras/jdk-java-net-overlay/main" // user/repo/branch
-                    + "/jdk-uri.properties");
+                    + "/oracle-actions/setup-java/main" // user/repo/branch
+                    + "/jdk.java.net-uri.properties");
         var properties = new Properties();
         properties.load(new StringReader(s));
         return Optional.ofNullable(properties.getProperty(key));
