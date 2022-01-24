@@ -11,12 +11,12 @@ These include the following labels: `ubuntu-latest`, `macos-latest`, and `window
 
 ### `source` Download Site
 
-This `input` specifices from where the JDK build should be download from, it is set by detailt to `oracle.com`.
+This `input` specifices from where the JDK should be download from, it is set by default to `oracle.com`.
 
-The following source download sites are supported:
+The following source are supported:
 
-- [`oracle.com`](https://oracle.com) (default) for Oracle JDK 17 (NTFC) and later
-- [`java.net`](https://jdk.java.net) for the current OpenJDK GA (General Aavailability) build and for OpenJDK EA (Early-Access) builds (GPL v2 w/CPE), for example JDK 19-ea, Loom, Panama, or Valhalla
+- [`oracle.com`](https://oracle.com) (default) for Oracle JDK 17 and later
+- [`java.net`](https://jdk.java.net) for the current OpenJDK GA (General Availability) build and for OpenJDK EA (Early-Access) builds, for example JDK 19-ea, Loom, Panama, or Valhalla
 
 ### `feature` Java Release or Project Name
 
@@ -24,17 +24,16 @@ The `feature` denotes either a Java feature release (ex. `17`, `18`, ...) or the
 
 ### `version` Additional Version Information
 
-The `version` inputs defaults to `latest`.
-It can be used to specify an explicit version of a Java release, ex. `17.0.1`.
+The `version` input can be used to specify an explicit version of a Java release, ex. `17.0.1`. It is set by default to `latest`.
 
 ### `install` Flag
 
 This action uses [`actions/setup-java`](https://github.com/actions/setup-java) to install the downloaded JDK.
-Pass `false` to override the default `true` value and skip the installation.
+Pass `false` to skip the JDK installation.
 
 ### `uri` Custom JDK
 
-Use this input to download a JDK from the specified URI. The `website`, `feature`, and `version` inputs are ignored.
+Use this input to download a JDK from the specified URI. The `website`, `feature`, and `version` inputs are then ignored.
 
 ## Examples for `oracle.com`
 
