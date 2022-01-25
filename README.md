@@ -1,19 +1,22 @@
 # oracle-actions/setup-java
 
-This action downloads a JDK built by Oracle (Oracle JDK or Oracle OpenJDK), and installs it using [`actions/setup-java`](https://github.com/actions/setup-java).
+This action downloads a JDK built by Oracle and installs it using [`actions/setup-java`](https://github.com/actions/setup-java).
+
+JDKs built by Oracle are Oracle JDK and Oracle OpenJDK.
 
 ## Input Overview
 
-| Input Name | Default Value | Description                                                                                                 |
-|------------|:--------------|-------------------------------------------------------------------------------------------------------------|
-| `website`  | `oracle.com`  | Specifies from where the JDK should be download from.                                                       |
-| `feature`  | `17`          | Denotes a Java feature release number (`17`, `18`, ...) or a name of an Early-Access project (`Loom`, ...). |
-| `version`  | `latest`      | Specifies an explicit version of a Java release.                                                            |
-| `install`  | `true`        |                                                                                                             |
+| Input Name | Default Value | Description                                                     |
+|------------|--------------:|-----------------------------------------------------------------|
+| `website`  |  `oracle.com` | From where the JDK should be download from.                     |
+| `feature`  |          `17` | Java feature release number or name of an Early-Access project. |
+| `version`  |      `latest` | An explicit version of a Java release.                          |
+| `install`  |        `true` | Install the downloaded JDK archive file.                        |
+| `uri`      |       _empty_ | Custom URI of a JDK archive file to download                    |
 
 ### Input `website`
 
-The `website` specifies from where the JDK should be download from.
+The `website` input specifies from where the JDK should be download from.
 It defaults to `oracle.com`.
 
 Following values are supported:
@@ -26,7 +29,7 @@ Following values are supported:
 
   Early-Access builds include the [mainline](https://github.com/openjdk/jdk/tags) JDK, and project Loom, Panama, and Valhalla.
  
-  The [jdk.java.net-uri.properties](jdk.java.net-uri.properties) file provides a set of key-value pairs mapping JDK descriptions to their download links.
+  The [jdk.java.net-uri.properties](jdk.java.net-uri.properties) file provides a set of key-value pairs mapping OpenJDK descriptions to their download links.
 
 ### Input `feature`
 
