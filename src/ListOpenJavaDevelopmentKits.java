@@ -9,7 +9,26 @@ import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-/** List Java Development Kit builds hosted at: {@code https://jdk.java.net}. */
+/**
+ * List Java Development Kit builds hosted at: {@code https://jdk.java.net}.
+ *
+ * <p>Example output:
+ *
+ * <pre>{@code
+ * 17,17.0.2,linux,x64=https://[...]/GPL/openjdk-17.0.2_linux-x64_bin.tar.gz
+ * 17,latest,linux,x64=https://[...]/GPL/openjdk-17.0.2_linux-x64_bin.tar.gz
+ * ga,latest,linux,x64=https://[...]/GPL/openjdk-17.0.2_linux-x64_bin.tar.gz
+ * }</pre>
+ *
+ * Keys are composed of {@code FEATURE,VERSION,OS-NAME,OS-ARCH} with:
+ *
+ * <ul>
+ *   <li>{@code FEATURE}: Either a release feature number or a name of an early-access project
+ *   <li>{@code VERSION}: Either a specific version or `latest`
+ *   <li>{@code OS-NAME}: An operating system name, usually one of: `linux`, `macos`, `windows`
+ *   <li>{@code OS-ARCH}: An operating system architecture, like: `aarch64`, `x64`, or `x64-musl`
+ * </ul>
+ */
 class ListOpenJavaDevelopmentKits {
 
   /** Current General-Availability release feature number. */

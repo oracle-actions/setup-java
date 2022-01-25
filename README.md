@@ -1,45 +1,70 @@
 # oracle-actions/setup-java
 
-This action downloads a JDK built by Oracle (Oracle JDK or Oracle OpenJDK build), and installs it using [`actions/setup-java`](https://github.com/actions/setup-java).
+This action downloads a JDK built by Oracle (Oracle JDK or Oracle OpenJDK), and installs it using [`actions/setup-java`](https://github.com/actions/setup-java).
 
-## Supported GitHub Actions Virtual Environments
+## Input Overview
 
-All [environments](https://github.com/actions/virtual-environments#available-environments) that have Java 11 pre-installed are supported.
-These include the following labels: `ubuntu-latest`, `macos-latest`, and `windows-latest`.
+| Input Name | Default Value | Description                                                                                                 |
+|------------|:--------------|-------------------------------------------------------------------------------------------------------------|
+| `website`  | `oracle.com`  | Specifies from where the JDK should be download from.                                                       |
+| `feature`  | `17`          | Denotes a Java feature release number (`17`, `18`, ...) or a name of an Early-Access project (`Loom`, ...). |
+| `version`  | `latest`      | Specifies an explicit version of a Java release.                                                            |
+| `install`  | `true`        |                                                                                                             |
 
-## Inputs
+### Input `website`
 
-### `source` Download Site
+The `website` specifies from where the JDK should be download from.
+It defaults to `oracle.com`.
 
-This `input` specifices from where the JDK should be download from, it is set by default to `oracle.com`.
+Following values are supported:
 
-The following source are supported:
+- [`oracle.com`](https://www.oracle.com/java/technologies/downloads/) for Oracle JDK 17 and later.
 
-- [`oracle.com`](https://oracle.com) (default) for Oracle JDK 17 and later
-- [`java.net`](https://jdk.java.net) for the current OpenJDK GA (General Availability) build and for OpenJDK EA (Early-Access) builds, for example JDK 19-ea, Loom, Panama, or Valhalla
+  This action only supports Oracle JDKs provided under the [Oracle No-Fee Terms and Conditions License](https://www.java.com/freeuselicense/).
 
-### `feature` Java Release or Project Name
+- [`java.net`](https://jdk.java.net) for the current OpenJDK General Availability build and for OpenJDK Early-Access builds.
 
-The `feature` denotes either a Java feature release (ex. `17`, `18`, ...) or the name of an Early-Access project (ex. `loom`).
+  Early-Access builds include the [mainline](https://github.com/openjdk/jdk/tags) JDK, and project Loom, Panama, and Valhalla.
+ 
+  The [jdk.java.net-uri.properties](jdk.java.net-uri.properties) file provides a set of key-value pairs mapping JDK descriptions to their download links.
 
-### `version` Additional Version Information
+### Input `feature`
 
-The `version` input can be used to specify an explicit version of a Java release, ex. `17.0.1`. It is set by default to `latest`.
+The `feature` input denotes a Java feature release number (`17`, `18`, ...) or a name of an Early-Access project (`Loom`, ...).
+It defaults to the latest long-term support release for the Java SE platform., which is `17` as of today.
 
-### `install` Flag
+### Input `version`
 
-This action uses [`actions/setup-java`](https://github.com/actions/setup-java) to install the downloaded JDK.
-Pass `false` to skip the JDK installation.
+The `version` input can be used to specify an explicit version of a Java release, ex. `17.0.1`.
+It is set by default to `latest`.
 
-### `uri` Custom JDK
+___
 
-Use this input to download a JDK from the specified URI. The `website`, `feature`, and `version` inputs are then ignored.
+**WARNING!**
+
+Older versions of the JDK are provided to help developers debug issues in older systems.
+**They are not updated with the latest security patches and are not recommended for use in production.**
+
+___
+
+### Input `install`
+
+The `install` input enables or disables the automatic JDK installation of the downloaded JDK archive file.
+It is enabled by default by using `true` as its value.
+
+This action delegates to [`actions/setup-java`](https://github.com/actions/setup-java) in order to install the downloaded JDK archive file using default
+Pass `false` to skip the automatic JDK installation and invoke `actions/setup-java` with your custom settings.
+
+### Input `uri`
+
+Use the `uri` input to download a JDK from the specified URI originating from a supported website.
+The value of inputs `website`, `feature`, and `version` ignored.
 
 ## Examples for `oracle.com`
 
 The following examples use the [JDK Script Friendly URLs](https://www.oracle.com/java/technologies/jdk-script-friendly-urls/) to download and set up binaries that are made available under the [Oracle No-Fee Terms and Conditions License](https://www.java.com/freeuselicense/).
 
-#### Download and install the latest version of the Oracle JDK.
+### Download and install the latest version of Oracle JDK
 
 ```yaml
 steps:
@@ -50,7 +75,7 @@ steps:
       feature: 17
 ```
 
-#### Download and install a specific version of the Oracle JDK.
+### Download and install a specific version of Oracle JDK
 
 ```yaml
 steps:
@@ -61,14 +86,20 @@ steps:
       feature: 17
       version: 17.0.1
 ```
+___
 
-Make sure to check this note regarding the [use of older builds](#warning).
+**WARNING!**
+
+Older versions of the JDK are provided to help developers debug issues in older systems.
+**They are not updated with the latest security patches and are not recommended for use in production.**
+
+___
 
 ## Examples for `java.net`
 
 The following examples download and install OpenJDK binaries that are made available under the [GNU General Public License, version 2, with the Classpath Exception](https://openjdk.java.net/legal/gplv2+ce.html).
 
-#### Download and install the OpenJDK build of a given feature release
+### Download and install an OpenJDK build of a given feature release
 
 ```yaml
 steps:
@@ -79,7 +110,7 @@ steps:
       feature: N # Replace N with GA, EA, 17, 18, 19, ...
 ```
 
-#### Download and install the Early-Access build of a given OpenJDK project
+### Download and install an Early-Access build of a named OpenJDK project
 
 ```yaml
 steps:
@@ -90,34 +121,10 @@ steps:
       feature: Loom # or Panama, Valhalla, ...
 ```
 
-## Supported JDKs hosted at `oracle.com`
+## Supported GitHub Actions Virtual Environments
 
-This action only supports Oracle JDKs provided under the [Oracle No-Fee Terms and Conditions License](https://www.java.com/freeuselicense/).
-
-## Supported JDKs hosted at `java.net`
-
-The [jdk.java.net-uri.properties](jdk.java.net-uri.properties) file provides a set of key-value pairs mapping JDK descriptions to their download links.
-
-```properties
-17,17.0.1,linux,x64=https://download.java.net/java/[...]/GPL/openjdk-17.0.1_linux-x64_bin.tar.gz
-```
-
-Keys are composed of `FEATURE,VERSION,OS-NAME,OS-ARCH` with:
-
-- `FEATURE`: Either a release feature number or a name of an early-access project
-- `VERSION`: Either a specific version or `latest`
-- `OS-NAME`: An operating system name, usually one of: `linux`, `macos`, `windows`
-- `OS-ARCH`: An operating system architecture, like: `aarch64`, `x64`, or `x64-musl`
-
-Run `java src/ListOpenJavaDevelopmentKits.java` to parse a set of default pages hosted at <https://jdk.java.net> and print all key-value pairs, including aliases.
-Check [src/ListOpenJavaDevelopmentKits.java](src/ListOpenJavaDevelopmentKits.java) for details.
-
-Run `java src/ListOpenJavaDevelopmentKits.java PAGE [MORE...]` to parse <https://jdk.java.net/PAGE/> only and print key-value pairs found on that particular page.
-
-## :warning: <a id="warning"></a>Archived builds
-
-Older versions of the JDK are provided to help developers debug issues in older systems. **They are not updated with the latest security patches and are not recommended for use in production.**
-
+All [environments](https://github.com/actions/virtual-environments#available-environments) that have Java 11 pre-installed are supported.
+These include the following labels: `ubuntu-latest`, `macos-latest`, and `windows-latest`.
 
 ## Status
 
