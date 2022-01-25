@@ -1,59 +1,60 @@
 # oracle-actions/setup-java
 
-Download and set up a JDK built by Oracle for GitHub Actions ready-to-use in your workflow.
+This action downloads a JDK built by Oracle (Oracle JDK or Oracle OpenJDK build), and installs it using [`actions/setup-java`](https://github.com/actions/setup-java).
 
 ## Supported GitHub Actions Virtual Environments
 
-All [environments](https://github.com/actions/virtual-environments#available-environments) that have Java 11 preinstalled are supported.
+All [environments](https://github.com/actions/virtual-environments#available-environments) that have Java 11 pre-installed are supported.
 These include the following labels: `ubuntu-latest`, `macos-latest`, and `windows-latest`.
 
 ## Inputs
 
-### `website` Download Site
+### `source` Download Site
 
-The `website` input defaults to `oracle.com`.
+This `input` specifices from where the JDK should be download from, it is set by default to `oracle.com`.
 
-Supported download site are:
+The following source are supported:
 
-- [`oracle.com`](https://oracle.com) for JDK 17 and later
-- [`java.net`](https://jdk.java.net) for current GA and EA builds, for example JDK 19-ea and Loom, Panama, and Valhalla
+- [`oracle.com`](https://oracle.com) (default) for Oracle JDK 17 and later
+- [`java.net`](https://jdk.java.net) for the current OpenJDK GA (General Availability) build and for OpenJDK EA (Early-Access) builds, for example JDK 19-ea, Loom, Panama, or Valhalla
 
 ### `feature` Java Release or Project Name
 
-The `feature` denotes either a Java release feature number (`17`, `18`, ...) or a name of an Early-Access project.
+The `feature` denotes either a Java feature release (ex. `17`, `18`, ...) or the name of an Early-Access project (ex. `loom`).
 
-### `version` Addition Version Information
+### `version` Additional Version Information
 
-The `version` inputs defaults to `latest`.
-It can be used to specify an explicit version of a Java release, like `17.0.1`.
+The `version` input can be used to specify an explicit version of a Java release, ex. `17.0.1`. It is set by default to `latest`.
 
 ### `install` Flag
 
-The `install` flag defaults to `true`.
-
-Pass `false` to skip running [`actions/setup-java`](https://github.com/actions/setup-java) as part of this action.
+This action uses [`actions/setup-java`](https://github.com/actions/setup-java) to install the downloaded JDK.
+Pass `false` to skip the JDK installation.
 
 ### `uri` Custom JDK
 
-Download any JDK from a supported website.
-When this input is used, it overrides values given via `website`, `feature`, and `version` inputs.
+Use this input to download a JDK from the specified URI. The `website`, `feature`, and `version` inputs are then ignored.
 
 ## Examples for `oracle.com`
 
-Leveraging [JDK Script Friendly URLs](https://www.oracle.com/java/technologies/jdk-script-friendly-urls/) the following examples download and set up binaries that are made available under the [Oracle No-Fee Terms and Conditions License](https://www.java.com/freeuselicense/).
+The following examples use the [JDK Script Friendly URLs](https://www.oracle.com/java/technologies/jdk-script-friendly-urls/) to download and set up binaries that are made available under the [Oracle No-Fee Terms and Conditions License](https://www.java.com/freeuselicense/).
+
+#### Download and install the latest version of the Oracle JDK.
 
 ```yaml
 steps:
-  - name: 'Set up latest OracleJDK 17'
+  - name: 'Set up latest Oracle JDK 17'
     uses: oracle-actions/setup-java@v1
     with:
       website: oracle.com
       feature: 17
 ```
 
+#### Download and install a specific version of the Oracle JDK.
+
 ```yaml
 steps:
-  - name: 'Set up archived OracleJDK 17.0.1'
+  - name: 'Set up archived Oracle JDK 17.0.1'
     uses: oracle-actions/setup-java@v1
     with:
       website: oracle.com
@@ -61,9 +62,13 @@ steps:
       version: 17.0.1
 ```
 
+Make sure to check this note regarding the [use of older builds](#warning).
+
 ## Examples for `java.net`
 
-Leveraging a generated [map](#supported-jdks-hosted-at-javanet) the following examples download and set up binaries that are made available under the [GNU General Public License, version 2, with the Classpath Exception](https://openjdk.java.net/legal/gplv2+ce.html).
+The following examples download and install OpenJDK binaries that are made available under the [GNU General Public License, version 2, with the Classpath Exception](https://openjdk.java.net/legal/gplv2+ce.html).
+
+#### Download and install the OpenJDK build of a given feature release
 
 ```yaml
 steps:
@@ -74,6 +79,8 @@ steps:
       feature: N # Replace N with GA, EA, 17, 18, 19, ...
 ```
 
+#### Download and install the Early-Access build of a given OpenJDK project
+
 ```yaml
 steps:
   - name: 'Set up Early-Access build of a named project from jdk.java.net'
@@ -82,6 +89,10 @@ steps:
       website: java.net
       feature: Loom # or Panama, Valhalla, ...
 ```
+
+## Supported JDKs hosted at `oracle.com`
+
+This action only supports Oracle JDKs provided under the [Oracle No-Fee Terms and Conditions License](https://www.java.com/freeuselicense/).
 
 ## Supported JDKs hosted at `java.net`
 
@@ -99,9 +110,14 @@ Keys are composed of `FEATURE,VERSION,OS-NAME,OS-ARCH` with:
 - `OS-ARCH`: An operating system architecture, like: `aarch64`, `x64`, or `x64-musl`
 
 Run `java src/ListOpenJavaDevelopmentKits.java` to parse a set of default pages hosted at <https://jdk.java.net> and print all key-value pairs, including aliases.
-Consult [src/ListOpenJavaDevelopmentKits.java](src/ListOpenJavaDevelopmentKits.java) for details.
+Check [src/ListOpenJavaDevelopmentKits.java](src/ListOpenJavaDevelopmentKits.java) for details.
 
 Run `java src/ListOpenJavaDevelopmentKits.java PAGE [MORE...]` to parse <https://jdk.java.net/PAGE/> only and print key-value pairs found on that particular page.
+
+## :warning: <a id="warning"></a>Archived builds
+
+Older versions of the JDK are provided to help developers debug issues in older systems. **They are not updated with the latest security patches and are not recommended for use in production.**
+
 
 ## Status
 
