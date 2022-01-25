@@ -31,7 +31,7 @@ jobs:
 
   projects:
     name: "Project ${{ matrix.project }} on ${{ matrix.os }}"
-    needs: [ features, archives ]
+    needs: [ features ]
     strategy:
       fail-fast: false
       max-parallel: 3
