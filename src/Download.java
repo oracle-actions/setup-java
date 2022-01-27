@@ -107,6 +107,13 @@ public class Download {
       this.type = type;
     }
 
+    @Override
+    public String toString() {
+      return String.format(
+          "JDK{feature='%s', version='%s', os='%s', arch='%s', type='%s'}",
+          feature, version, os, arch, type);
+    }
+
     static String computeOsName() {
       var name = System.getProperty("os.name").toLowerCase();
       if (name.contains("win")) return "windows";
