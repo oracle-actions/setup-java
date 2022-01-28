@@ -9,6 +9,7 @@ public class Test {
   public static void main(String[] args) {
     checkAllOracleJDKs();
     checkAllJavaNetJDKs();
+    checkUnsupportedInputs();
 
     if (ERRORS.isEmpty()) return;
 
@@ -35,19 +36,19 @@ public class Test {
 
     System.out.println();
     System.out.println("// java.net - EA - latest");
-    checkJavaNetJDK("ea","latest");
+    checkJavaNetJDK("ea", "latest");
 
     System.out.println();
     System.out.println("// java.net - Project Loom - latest");
-    checkJavaNetJDK("loom","latest");
+    checkJavaNetJDK("loom", "latest");
 
     System.out.println();
     System.out.println("// java.net - Project Panama - latest");
-    checkJavaNetJDK("panama","latest");
+    checkJavaNetJDK("panama", "latest");
 
     System.out.println();
     System.out.println("// java.net - Project Valhalla - latest");
-    checkJavaNetJDK("valhalla","latest");
+    checkJavaNetJDK("valhalla", "latest");
   }
 
   static void checkOracleJDK17(String version) {
@@ -73,5 +74,25 @@ public class Test {
     } catch (Exception exception) {
       ERRORS.add(jdk + "\n" + exception);
     }
+  }
+
+  static void checkUnsupportedInputs() {
+    System.out.println();
+    System.out.println("// Check unsupported inputs");
+    assertThrows(() -> Download.main(true), "Usage:");
+    assertThrows(() -> Download.main(true, "website"), "Could not find website for website");
+    assertThrows(() -> Download.main(true, "oracle.com", "0"), "Could not find URI of JDK");
+  }
+
+  static void assertThrows(Runnable runnable, String snippet) {
+    try {
+      runnable.run();
+    } catch (Throwable throwable) {
+      var message = throwable.toString();
+      if (message.contains(snippet)) return;
+      var format = "Caught %s, but expected snippet '%s' not found in message: %s";
+      throw new AssertionError(String.format(format, throwable.getClass(), snippet, message));
+    }
+    throw new AssertionError("Caught nothing?");
   }
 }

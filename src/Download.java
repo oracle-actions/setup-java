@@ -27,19 +27,25 @@ import java.util.regex.Pattern;
 public class Download {
   /** Main entry-point. */
   public static void main(String... args) {
+    main(Boolean.getBoolean(/*-D*/ "ry-run"), args);
+  }
+
+  /** Entry-point also used by tests. */
+  static void main(boolean dryRun, String... args) {
     // Pre-allocate action outputs
     var outputs = new TreeMap<String, String>();
     outputs.put("archive", "NOT-SET");
     outputs.put("version", "NOT-SET");
     try {
       if (args.length == 0) {
-        throw new IllegalArgumentException("Usage: Download URI or WEBSITE FEATURE VERSION");
+        throw new Error("Usage: Download URI or WEBSITE FEATURE VERSION");
       }
       var deque = new ArrayDeque<>(List.of(args));
       var first = deque.removeFirst(); // URI or WEBSITE
 
       // Determine website from first argument
-      var website = Website.find(first).orElseGet(Website::defaultWebsite);
+      var website =
+          Website.find(first).orElseThrow(() -> new Error("Could not find website for " + first));
       GitHub.debug("website: " + website);
 
       // Create JDK descriptor
@@ -53,7 +59,10 @@ public class Download {
       GitHub.debug("jdk: " + jdk);
 
       // Select or find URI based on the JDK descriptor
-      var uri = args.length == 1 ? first : website.findUri(jdk).orElseThrow();
+      var uri =
+          args.length == 1
+              ? first
+              : website.findUri(jdk).orElseThrow(() -> new Error("Could not find URI of " + jdk));
       GitHub.debug("uri: " + uri);
       if (!(uri.endsWith(".tar.gz") || uri.endsWith(".zip"))) {
         throw new IllegalArgumentException("URI must end with `.tar.gz` or `.zip`: " + uri);
@@ -76,7 +85,7 @@ public class Download {
       if (website.isMovingResourceUri(uri)) {
         downloader.checkSizeAndDeleteIfDifferent();
       }
-      downloader.downloadArchive(Boolean.getBoolean(/*-D*/ "ry-run"));
+      downloader.downloadArchive(dryRun);
       downloader.verifyChecksums(website.getChecksum(uri));
       System.out.printf("Archive %s in %s%n", archive.getFileName(), archive.getParent().toUri());
 
@@ -282,10 +291,6 @@ public class Download {
         return Optional.of(new JavaNetWebsite());
       }
       return Optional.empty();
-    }
-
-    static Website defaultWebsite() {
-      return new OracleComWebsite();
     }
 
     Optional<String> findUri(JDK jdk);
