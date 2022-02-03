@@ -374,7 +374,7 @@ public class Download {
 
   /** JDK builds hosted at {@code https://jdk.java.net}. */
   static class JavaNetWebsite implements Website {
-    static String NAME = "java.net";
+    static String NAME = "jdk.java.net";
     static String URI_PREFIX = "https://download.java.net";
 
     @Override

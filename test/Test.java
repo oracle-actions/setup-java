@@ -31,23 +31,23 @@ public class Test {
 
   static void checkAllJavaNetJDKs() {
     System.out.println();
-    System.out.println("// java.net - GA - latest");
+    System.out.println("// jdk.java.net - GA - latest");
     checkJavaNetJDK("ga", "latest");
 
     System.out.println();
-    System.out.println("// java.net - EA - latest");
+    System.out.println("// jdk.java.net - EA - latest");
     checkJavaNetJDK("ea", "latest");
 
     System.out.println();
-    System.out.println("// java.net - Project Loom - latest");
+    System.out.println("// jdk.java.net - Project Loom - latest");
     checkJavaNetJDK("loom", "latest");
 
     System.out.println();
-    System.out.println("// java.net - Project Panama - latest");
+    System.out.println("// jdk.java.net - Project Panama - latest");
     checkJavaNetJDK("panama", "latest");
 
     System.out.println();
-    System.out.println("// java.net - Project Valhalla - latest");
+    System.out.println("// jdk.java.net - Project Valhalla - latest");
     checkJavaNetJDK("valhalla", "latest");
   }
 
@@ -60,9 +60,9 @@ public class Test {
   }
 
   static void checkJavaNetJDK(String feature, String version) {
-    checkJDK("java.net", new Download.JDK(feature, version, "linux", "x64", "tar.gz"));
-    checkJDK("java.net", new Download.JDK(feature, version, "macos", "x64", "tar.gz"));
-    checkJDK("java.net", new Download.JDK(feature, version, "windows", "x64", "zip"));
+    checkJDK("jdk.java.net", new Download.JDK(feature, version, "linux", "x64", "tar.gz"));
+    checkJDK("jdk.java.net", new Download.JDK(feature, version, "macos", "x64", "tar.gz"));
+    checkJDK("jdk.java.net", new Download.JDK(feature, version, "windows", "x64", "zip"));
   }
 
   static void checkJDK(String website, Download.JDK jdk) {

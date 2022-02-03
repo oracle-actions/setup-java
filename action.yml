@@ -7,7 +7,7 @@ branding:
 
 inputs:
   website:
-    description: 'Site to download JDK from: `oracle.com` or `java.net`'
+    description: 'Site to download JDK from: `oracle.com` or `jdk.java.net`'
     required: true
     default: 'oracle.com'
   feature:

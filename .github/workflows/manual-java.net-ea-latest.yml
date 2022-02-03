@@ -18,7 +18,7 @@ jobs:
         id: setup
         uses: ./
         with:
-          website: java.net
+          website: jdk.java.net
           feature: ${{ matrix.feature }}
           version: latest
       - name: 'Print outputs'

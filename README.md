@@ -25,7 +25,7 @@ Following values are supported:
 
   This action only supports Oracle JDKs provided under the [Oracle No-Fee Terms and Conditions License](https://www.java.com/freeuselicense/).
 
-- [`java.net`](https://jdk.java.net) for the current OpenJDK General Availability build and for OpenJDK Early-Access builds.
+- [`jdk.java.net`](https://jdk.java.net) for the current OpenJDK General Availability build and for OpenJDK Early-Access builds.
 
   Early-Access builds include the [mainline](https://github.com/openjdk/jdk/tags) JDK, and project Loom, Panama, and Valhalla.
  
@@ -98,7 +98,7 @@ Older versions of the JDK are provided to help developers debug issues in older 
 
 ___
 
-## Examples for `java.net`
+## Examples for `jdk.java.net`
 
 The following examples download and install OpenJDK binaries that are made available under the [GNU General Public License, version 2, with the Classpath Exception](https://openjdk.java.net/legal/gplv2+ce.html).
 
@@ -109,7 +109,7 @@ steps:
   - name: 'Set up latest JDK N from jdk.java.net'
     uses: oracle-actions/setup-java@v1
     with:
-      website: java.net
+      website: jdk.java.net
       feature: N # Replace N with GA, EA, 17, 18, 19, ...
 ```
 
@@ -120,7 +120,7 @@ steps:
   - name: 'Set up Early-Access build of a named project from jdk.java.net'
     uses: oracle-actions/setup-java@v1
     with:
-      website: java.net
+      website: jdk.java.net
       feature: Loom # or Panama, Valhalla, ...
 ```
 

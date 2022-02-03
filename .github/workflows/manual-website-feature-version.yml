@@ -8,6 +8,7 @@ on:
         type: choice
         options:
           - 'oracle.com'
+          - 'jdk.java.net'
       feature:
         description: 'Release feature number or project name'
         default: '17'
