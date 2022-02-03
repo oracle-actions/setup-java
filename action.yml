@@ -10,8 +10,8 @@ inputs:
     description: 'Site to download JDK from: `oracle.com` or `jdk.java.net`'
     required: true
     default: 'oracle.com'
-  feature:
-    description: 'Feature number or project name, defaults to `17`'
+  release:
+    description: 'Feature release number or project name, defaults to `17`'
     required: true
     default: '17'
   version:
@@ -46,7 +46,7 @@ runs:
         if [ ! -z "${{ inputs.uri }}" ]; then
           $JAVA $DOWNLOAD ${{ inputs.uri }}
         else
-          $JAVA $DOWNLOAD ${{ inputs.website }} ${{ inputs.feature }} ${{ inputs.version }}
+          $JAVA $DOWNLOAD ${{ inputs.website }} ${{ inputs.release }} ${{ inputs.version }}
         fi
     - name: 'Install Java Development Kit'
       if: ${{ inputs.install  == 'true' }}

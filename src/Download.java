@@ -38,7 +38,7 @@ public class Download {
     outputs.put("version", "NOT-SET");
     try {
       if (args.length == 0) {
-        throw new Error("Usage: Download URI or WEBSITE FEATURE VERSION");
+        throw new Error("Usage: Download URI or WEBSITE RELEASE VERSION");
       }
       var deque = new ArrayDeque<>(List.of(args));
       var first = deque.removeFirst(); // URI or WEBSITE
@@ -102,14 +102,14 @@ public class Download {
 
   static class JDK {
 
-    final String feature;
+    final String release;
     final String version;
     final String os;
     final String arch;
     final String type;
 
-    JDK(String feature, String version, String os, String arch, String type) {
-      this.feature = feature;
+    JDK(String release, String version, String os, String arch, String type) {
+      this.release = release;
       this.version = version;
       this.os = os;
       this.arch = arch;
@@ -119,8 +119,8 @@ public class Download {
     @Override
     public String toString() {
       return String.format(
-          "JDK{feature='%s', version='%s', os='%s', arch='%s', type='%s'}",
-          feature, version, os, arch, type);
+          "JDK{release='%s', version='%s', os='%s', arch='%s', type='%s'}",
+          release, version, os, arch, type);
     }
 
     static String computeOsName() {
@@ -356,19 +356,19 @@ public class Download {
 
     @Override
     public Optional<String> findUri(JDK jdk) {
-      if (Integer.parseInt(jdk.feature) < 17) return Optional.empty();
+      if (Integer.parseInt(jdk.release) < 17) return Optional.empty();
       if (jdk.version.equals("latest")) return Optional.of(computeLatestUri(jdk));
       return Optional.of(computeArchiveUri(jdk));
     }
 
     String computeLatestUri(JDK jdk) {
       var format = URI_PREFIX + "%s/latest/jdk-%s_%s-%s_bin.%s";
-      return String.format(format, jdk.feature, jdk.feature, jdk.os, jdk.arch, jdk.type);
+      return String.format(format, jdk.release, jdk.release, jdk.os, jdk.arch, jdk.type);
     }
 
     String computeArchiveUri(JDK jdk) {
       var format = URI_PREFIX + "%s/archive/jdk-%s_%s-%s_bin.%s";
-      return String.format(format, jdk.feature, jdk.version, jdk.os, jdk.arch, jdk.type);
+      return String.format(format, jdk.release, jdk.version, jdk.os, jdk.arch, jdk.type);
     }
   }
 
@@ -386,7 +386,7 @@ public class Download {
     public Optional<String> findUri(JDK jdk) {
       var key =
           new StringJoiner(",")
-              .add(jdk.feature)
+              .add(jdk.release)
               .add(jdk.version)
               .add(jdk.os)
               .add(jdk.arch)

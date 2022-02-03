@@ -4,13 +4,13 @@ on:
 
 jobs:
   latest:
-    name: "Latest JDK ${{ matrix.feature }} on ${{ matrix.os }}"
+    name: "Latest JDK ${{ matrix.release }} on ${{ matrix.os }}"
     strategy:
       fail-fast: false
       max-parallel: 3
       matrix:
         os: [ ubuntu-latest , macos-latest, windows-latest ]
-        feature: [ 17 ]
+        release: [ 17 ]
     runs-on: ${{ matrix.os }}
     steps:
       - name: 'Check out repository'
@@ -20,7 +20,7 @@ jobs:
         uses: ./
         with:
           website: oracle.com
-          feature: ${{ matrix.feature }}
+          release: ${{ matrix.release }}
           version: latest
       - name: 'Print outputs'
         shell: bash

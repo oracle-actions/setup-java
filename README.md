@@ -9,7 +9,7 @@ JDKs built by Oracle are Oracle JDK and Oracle OpenJDK.
 | Input Name | Default Value | Description                                                     |
 |------------|--------------:|-----------------------------------------------------------------|
 | `website`  |  `oracle.com` | From where the JDK should be download from.                     |
-| `feature`  |          `17` | Java feature release number or name of an Early-Access project. |
+| `release`  |          `17` | Java feature release number or name of an Early-Access project. |
 | `version`  |      `latest` | An explicit version of a Java release.                          |
 | `install`  |        `true` | Install the downloaded JDK archive file.                        |
 | `uri`      |       _empty_ | Custom URI of a JDK archive file to download                    |
@@ -31,9 +31,9 @@ Following values are supported:
  
   The [jdk.java.net-uri.properties](jdk.java.net-uri.properties) file provides a set of key-value pairs mapping OpenJDK descriptions to their download links.
 
-### Input `feature`
+### Input `release`
 
-The `feature` input denotes a Java feature release number (`17`, `18`, ...) or a name of an Early-Access project (`Loom`, ...).
+The `release` input denotes a Java feature release number (`17`, `18`, ...) or a name of an Early-Access project (`loom`, ...).
 It defaults to the latest long-term support release for the Java SE platform., which is `17` as of today.
 
 ### Input `version`
@@ -102,7 +102,7 @@ ___
 
 The following examples download and install OpenJDK binaries that are made available under the [GNU General Public License, version 2, with the Classpath Exception](https://openjdk.java.net/legal/gplv2+ce.html).
 
-### Download and install an OpenJDK build of a given feature release
+### Download and install an OpenJDK build of a given release
 
 ```yaml
 steps:
@@ -110,7 +110,7 @@ steps:
     uses: oracle-actions/setup-java@v1
     with:
       website: jdk.java.net
-      feature: N # Replace N with GA, EA, 17, 18, 19, ...
+      release: N # Replace N with GA, EA, 17, 18, 19, ...
 ```
 
 ### Download and install an Early-Access build of a named OpenJDK project
@@ -121,7 +121,7 @@ steps:
     uses: oracle-actions/setup-java@v1
     with:
       website: jdk.java.net
-      feature: Loom # or Panama, Valhalla, ...
+      release: loom # or panama, valhalla, ...
 ```
 
 ## Supported GitHub Actions Virtual Environments

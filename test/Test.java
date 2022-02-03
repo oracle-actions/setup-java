@@ -59,10 +59,10 @@ public class Test {
     checkJDK("oracle.com", new Download.JDK("17", version, "windows", "x64", "zip"));
   }
 
-  static void checkJavaNetJDK(String feature, String version) {
-    checkJDK("jdk.java.net", new Download.JDK(feature, version, "linux", "x64", "tar.gz"));
-    checkJDK("jdk.java.net", new Download.JDK(feature, version, "macos", "x64", "tar.gz"));
-    checkJDK("jdk.java.net", new Download.JDK(feature, version, "windows", "x64", "zip"));
+  static void checkJavaNetJDK(String release, String version) {
+    checkJDK("jdk.java.net", new Download.JDK(release, version, "linux", "x64", "tar.gz"));
+    checkJDK("jdk.java.net", new Download.JDK(release, version, "macos", "x64", "tar.gz"));
+    checkJDK("jdk.java.net", new Download.JDK(release, version, "windows", "x64", "zip"));
   }
 
   static void checkJDK(String website, Download.JDK jdk) {

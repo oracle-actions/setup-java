@@ -20,10 +20,10 @@ import java.util.stream.Collectors;
  * ga,latest,linux,x64=https://[...]/GPL/openjdk-17.0.2_linux-x64_bin.tar.gz
  * }</pre>
  *
- * Keys are composed of {@code FEATURE,VERSION,OS-NAME,OS-ARCH} with:
+ * Keys are composed of {@code RELEASE,VERSION,OS-NAME,OS-ARCH} with:
  *
  * <ul>
- *   <li>{@code FEATURE}: Either a release feature number or a name of an early-access project
+ *   <li>{@code RELEASE}: Either a release number or a name of an early-access project
  *   <li>{@code VERSION}: Either a specific version or `latest`
  *   <li>{@code OS-NAME}: An operating system name, usually one of: `linux`, `macos`, `windows`
  *   <li>{@code OS-ARCH}: An operating system architecture, like: `aarch64`, `x64`, or `x64-musl`
@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
  */
 class ListOpenJavaDevelopmentKits {
 
-  /** Current General-Availability release feature number. */
+  /** Current General-Availability release number. */
   static final String GA = System.getProperty("GA", "17");
 
   /** Early-Access Releases, as comma separated names. */
@@ -103,7 +103,7 @@ class ListOpenJavaDevelopmentKits {
   }
 
   static List<String> generateEarlyAccessAliasKeys(String[] components) {
-    var feature = components[0];
+    var release = components[0];
     var version = components[1];
     try {
       var project = version.substring(version.indexOf('-') + 1, version.indexOf('+'));
@@ -111,7 +111,7 @@ class ListOpenJavaDevelopmentKits {
       components[1] = "latest";
       var alias = String.join(",", components);
       if (!project.equals("ea")) return List.of(alias);
-      components[0] = feature; // 18-latest-...
+      components[0] = release; // 18-latest-...
       return List.of(alias, String.join(",", components));
     } catch (IndexOutOfBoundsException exception) {
       System.err.println("Early-Access version without `-` and `+`: " + version);
