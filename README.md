@@ -9,7 +9,7 @@ JDKs built by Oracle are Oracle JDK and Oracle OpenJDK.
 | Input Name | Default Value | Description                                                     |
 |------------|--------------:|-----------------------------------------------------------------|
 | `website`  |  `oracle.com` | From where the JDK should be download from.                     |
-| `feature`  |          `17` | Java feature release number or name of an Early-Access project. |
+| `release`  |          `17` | Java feature release number or name of an Early-Access project. |
 | `version`  |      `latest` | An explicit version of a Java release.                          |
 | `install`  |        `true` | Install the downloaded JDK archive file.                        |
 | `uri`      |       _empty_ | Custom URI of a JDK archive file to download                    |
@@ -25,15 +25,15 @@ Following values are supported:
 
   This action only supports Oracle JDKs provided under the [Oracle No-Fee Terms and Conditions License](https://www.java.com/freeuselicense/).
 
-- [`java.net`](https://jdk.java.net) for the current OpenJDK General Availability build and for OpenJDK Early-Access builds.
+- [`jdk.java.net`](https://jdk.java.net) for the current OpenJDK General Availability build and for OpenJDK Early-Access builds.
 
   Early-Access builds include the [mainline](https://github.com/openjdk/jdk/tags) JDK, and project Loom, Panama, and Valhalla.
  
   The [jdk.java.net-uri.properties](jdk.java.net-uri.properties) file provides a set of key-value pairs mapping OpenJDK descriptions to their download links.
 
-### Input `feature`
+### Input `release`
 
-The `feature` input denotes a Java feature release number (`17`, `18`, ...) or a name of an Early-Access project (`Loom`, ...).
+The `release` input denotes a Java feature release number (`17`, `18`, ...) or a name of an Early-Access project (`loom`, ...).
 It defaults to the latest long-term support release for the Java SE platform., which is `17` as of today.
 
 ### Input `version`
@@ -61,7 +61,7 @@ Pass `false` to skip the automatic JDK installation and invoke `actions/setup-ja
 ### Input `uri`
 
 Use the `uri` input to download a JDK from the specified URI originating from a supported website.
-The value of inputs `website`, `feature`, and `version` ignored.
+The value of inputs `website`, `release`, and `version` ignored.
 
 ## Examples for `oracle.com`
 
@@ -75,7 +75,7 @@ steps:
     uses: oracle-actions/setup-java@v1
     with:
       website: oracle.com
-      feature: 17
+      release: 17
 ```
 
 ### Download and install a specific version of Oracle JDK
@@ -86,7 +86,7 @@ steps:
     uses: oracle-actions/setup-java@v1
     with:
       website: oracle.com
-      feature: 17
+      release: 17
       version: 17.0.1
 ```
 ___
@@ -98,19 +98,19 @@ Older versions of the JDK are provided to help developers debug issues in older 
 
 ___
 
-## Examples for `java.net`
+## Examples for `jdk.java.net`
 
 The following examples download and install OpenJDK binaries that are made available under the [GNU General Public License, version 2, with the Classpath Exception](https://openjdk.java.net/legal/gplv2+ce.html).
 
-### Download and install an OpenJDK build of a given feature release
+### Download and install an OpenJDK build of a given release
 
 ```yaml
 steps:
   - name: 'Set up latest JDK N from jdk.java.net'
     uses: oracle-actions/setup-java@v1
     with:
-      website: java.net
-      feature: N # Replace N with GA, EA, 17, 18, 19, ...
+      website: jdk.java.net
+      release: N # Replace N with GA, EA, 17, 18, 19, ...
 ```
 
 ### Download and install an Early-Access build of a named OpenJDK project
@@ -120,8 +120,8 @@ steps:
   - name: 'Set up Early-Access build of a named project from jdk.java.net'
     uses: oracle-actions/setup-java@v1
     with:
-      website: java.net
-      feature: Loom # or Panama, Valhalla, ...
+      website: jdk.java.net
+      release: loom # or panama, valhalla, ...
 ```
 
 ## Supported GitHub Actions Virtual Environments

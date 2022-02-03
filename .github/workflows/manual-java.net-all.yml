@@ -2,14 +2,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  features:
-    name: "JDK ${{ matrix.feature }} on ${{ matrix.os }}"
+  releases:
+    name: "JDK ${{ matrix.release }} on ${{ matrix.os }}"
     strategy:
       fail-fast: false
       max-parallel: 3
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
-        feature: [ 19, 18, 17 ]
+        release: [ 19, 18, 17 ]
     runs-on: ${{ matrix.os }}
     steps:
       - name: 'Check out repository'
@@ -18,8 +18,8 @@ jobs:
         id: setup
         uses: ./
         with:
-          website: java.net
-          feature: ${{ matrix.feature }}
+          website: jdk.java.net
+          release: ${{ matrix.release }}
       - name: 'Print outputs'
         shell: bash
         run: |
@@ -31,7 +31,7 @@ jobs:
 
   projects:
     name: "Project ${{ matrix.project }} on ${{ matrix.os }}"
-    needs: [ features ]
+    needs: [ releases ]
     strategy:
       fail-fast: false
       max-parallel: 3
@@ -48,8 +48,8 @@ jobs:
         id: setup
         uses: ./
         with:
-          website: java.net
-          feature: ${{ matrix.project }}
+          website: jdk.java.net
+          release: ${{ matrix.project }}
       - name: 'Print outputs'
         shell: bash
         run: |

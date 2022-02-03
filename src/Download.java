@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2022, Oracle and/or its affiliates.
+ *
+ * This source code is licensed under the UPL license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -27,19 +34,25 @@ import java.util.regex.Pattern;
 public class Download {
   /** Main entry-point. */
   public static void main(String... args) {
+    main(Boolean.getBoolean(/*-D*/ "ry-run"), args);
+  }
+
+  /** Entry-point also used by tests. */
+  static void main(boolean dryRun, String... args) {
     // Pre-allocate action outputs
     var outputs = new TreeMap<String, String>();
     outputs.put("archive", "NOT-SET");
     outputs.put("version", "NOT-SET");
     try {
       if (args.length == 0) {
-        throw new IllegalArgumentException("Usage: Download URI or WEBSITE FEATURE VERSION");
+        throw new Error("Usage: Download URI or WEBSITE RELEASE VERSION");
       }
       var deque = new ArrayDeque<>(List.of(args));
       var first = deque.removeFirst(); // URI or WEBSITE
 
       // Determine website from first argument
-      var website = Website.find(first).orElseGet(Website::defaultWebsite);
+      var website =
+          Website.find(first).orElseThrow(() -> new Error("Could not find website for " + first));
       GitHub.debug("website: " + website);
 
       // Create JDK descriptor
@@ -53,7 +66,10 @@ public class Download {
       GitHub.debug("jdk: " + jdk);
 
       // Select or find URI based on the JDK descriptor
-      var uri = args.length == 1 ? first : website.findUri(jdk).orElseThrow();
+      var uri =
+          args.length == 1
+              ? first
+              : website.findUri(jdk).orElseThrow(() -> new Error("Could not find URI of " + jdk));
       GitHub.debug("uri: " + uri);
       if (!(uri.endsWith(".tar.gz") || uri.endsWith(".zip"))) {
         throw new IllegalArgumentException("URI must end with `.tar.gz` or `.zip`: " + uri);
@@ -76,7 +92,7 @@ public class Download {
       if (website.isMovingResourceUri(uri)) {
         downloader.checkSizeAndDeleteIfDifferent();
       }
-      downloader.downloadArchive(Boolean.getBoolean(/*-D*/ "ry-run"));
+      downloader.downloadArchive(dryRun);
       downloader.verifyChecksums(website.getChecksum(uri));
       System.out.printf("Archive %s in %s%n", archive.getFileName(), archive.getParent().toUri());
 
@@ -93,18 +109,25 @@ public class Download {
 
   static class JDK {
 
-    final String feature;
+    final String release;
     final String version;
     final String os;
     final String arch;
     final String type;
 
-    JDK(String feature, String version, String os, String arch, String type) {
-      this.feature = feature;
+    JDK(String release, String version, String os, String arch, String type) {
+      this.release = release;
       this.version = version;
       this.os = os;
       this.arch = arch;
       this.type = type;
+    }
+
+    @Override
+    public String toString() {
+      return String.format(
+          "JDK{release='%s', version='%s', os='%s', arch='%s', type='%s'}",
+          release, version, os, arch, type);
     }
 
     static String computeOsName() {
@@ -277,10 +300,6 @@ public class Download {
       return Optional.empty();
     }
 
-    static Website defaultWebsite() {
-      return new OracleComWebsite();
-    }
-
     Optional<String> findUri(JDK jdk);
 
     default Path computeArchivePath(String uri) {
@@ -344,25 +363,25 @@ public class Download {
 
     @Override
     public Optional<String> findUri(JDK jdk) {
-      if (Integer.parseInt(jdk.feature) < 17) return Optional.empty();
+      if (Integer.parseInt(jdk.release) < 17) return Optional.empty();
       if (jdk.version.equals("latest")) return Optional.of(computeLatestUri(jdk));
       return Optional.of(computeArchiveUri(jdk));
     }
 
     String computeLatestUri(JDK jdk) {
       var format = URI_PREFIX + "%s/latest/jdk-%s_%s-%s_bin.%s";
-      return String.format(format, jdk.feature, jdk.feature, jdk.os, jdk.arch, jdk.type);
+      return String.format(format, jdk.release, jdk.release, jdk.os, jdk.arch, jdk.type);
     }
 
     String computeArchiveUri(JDK jdk) {
       var format = URI_PREFIX + "%s/archive/jdk-%s_%s-%s_bin.%s";
-      return String.format(format, jdk.feature, jdk.version, jdk.os, jdk.arch, jdk.type);
+      return String.format(format, jdk.release, jdk.version, jdk.os, jdk.arch, jdk.type);
     }
   }
 
   /** JDK builds hosted at {@code https://jdk.java.net}. */
   static class JavaNetWebsite implements Website {
-    static String NAME = "java.net";
+    static String NAME = "jdk.java.net";
     static String URI_PREFIX = "https://download.java.net";
 
     @Override
@@ -374,7 +393,7 @@ public class Download {
     public Optional<String> findUri(JDK jdk) {
       var key =
           new StringJoiner(",")
-              .add(jdk.feature)
+              .add(jdk.release)
               .add(jdk.version)
               .add(jdk.os)
               .add(jdk.arch)

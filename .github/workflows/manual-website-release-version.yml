@@ -8,8 +8,9 @@ on:
         type: choice
         options:
           - 'oracle.com'
-      feature:
-        description: 'Release feature number or project name'
+          - 'jdk.java.net'
+      release:
+        description: 'Release release number or project name'
         default: '17'
         required: true
         type: string
@@ -26,7 +27,7 @@ on:
 
 jobs:
   test:
-    name: "JDK ${{ github.event.inputs.feature }} (${{ github.event.inputs.version }}) on ${{ matrix.os }}"
+    name: "JDK ${{ github.event.inputs.release }} (${{ github.event.inputs.version }}) on ${{ matrix.os }}"
     strategy:
       fail-fast: false
       max-parallel: 3
@@ -41,7 +42,7 @@ jobs:
         uses: ./
         with:
           website: ${{ github.event.inputs.website }}
-          feature: ${{ github.event.inputs.feature }}
+          release: ${{ github.event.inputs.release }}
           version: ${{ github.event.inputs.version }}
           install: ${{ github.event.inputs.install }}
       - name: 'Print outputs'
