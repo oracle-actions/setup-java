@@ -61,7 +61,7 @@ Pass `false` to skip the automatic JDK installation and invoke `actions/setup-ja
 ### Input `uri`
 
 Use the `uri` input to download a JDK from the specified URI originating from a supported website.
-The value of inputs `website`, `feature`, and `version` ignored.
+The value of inputs `website`, `release`, and `version` ignored.
 
 ## Examples for `oracle.com`
 
@@ -75,7 +75,7 @@ steps:
     uses: oracle-actions/setup-java@v1
     with:
       website: oracle.com
-      feature: 17
+      release: 17
 ```
 
 ### Download and install a specific version of Oracle JDK
@@ -86,7 +86,7 @@ steps:
     uses: oracle-actions/setup-java@v1
     with:
       website: oracle.com
-      feature: 17
+      release: 17
       version: 17.0.1
 ```
 ___
