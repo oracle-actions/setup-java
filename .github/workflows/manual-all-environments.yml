@@ -3,7 +3,7 @@ on:
 
 jobs:
   test:
-    name: "${{ github.event.inputs.os }} with default JDK"
+    name: "Test ${{ matrix.os }} with default JDK"
     strategy:
       fail-fast: false
       max-parallel: 3
