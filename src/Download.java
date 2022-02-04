@@ -401,7 +401,9 @@ public class Download {
       try {
         var defaultProperties = new Properties();
         var file = Path.of("jdk.java.net-uri.properties");
-        defaultProperties.load(new StringReader(Files.readString(file)));
+        if (Files.exists(file)) {
+          defaultProperties.load(new StringReader(Files.readString(file)));
+        }
         var properties = new Properties(defaultProperties);
         var browser = new Browser();
         var s =
@@ -413,6 +415,7 @@ public class Download {
         properties.load(new StringReader(s));
         return Optional.ofNullable(properties.getProperty(key));
       } catch (Exception exception) {
+        GitHub.warn("Caught exception: " + exception);
         return Optional.empty();
       }
     }
