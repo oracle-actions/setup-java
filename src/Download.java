@@ -78,11 +78,12 @@ public class Download {
       // Emit warning when using an archived JDK build
       if (website.isArchivedUri(uri)) {
         GitHub.warn(
-            "JDK resolved to an archived build!\n"
-                + "These older versions of the JDK are provided\n"
-                + " to help developers debug issues in older systems.\n"
-                + "They are not updated with the latest security patches\n"
-                + " and are not recommended for use in production.");
+            """
+            JDK resolved to an archived build!
+            These older versions of the JDK are provided to help developers debug issues in older systems.
+            They are not updated with the latest security patches and are not recommended for use in production.
+            """
+        );
       }
 
       // Acquire JDK archive
@@ -107,28 +108,7 @@ public class Download {
     }
   }
 
-  static class JDK {
-
-    final String release;
-    final String version;
-    final String os;
-    final String arch;
-    final String type;
-
-    JDK(String release, String version, String os, String arch, String type) {
-      this.release = release;
-      this.version = version;
-      this.os = os;
-      this.arch = arch;
-      this.type = type;
-    }
-
-    @Override
-    public String toString() {
-      return String.format(
-          "JDK{release='%s', version='%s', os='%s', arch='%s', type='%s'}",
-          release, version, os, arch, type);
-    }
+  record JDK(String release, String version, String os, String arch, String type) {
 
     static String computeOsName() {
       var name = System.getProperty("os.name").toLowerCase();
