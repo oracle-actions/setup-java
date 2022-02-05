@@ -108,8 +108,7 @@ public class Download {
     }
   }
 
-  record JDK(String release, String version, String os, String arch,
-             String type) {
+  record JDK(String release, String version, String os, String arch, String type) {
 
     static String computeOsName() {
       var name = System.getProperty("os.name").toLowerCase();
