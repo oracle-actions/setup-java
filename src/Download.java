@@ -78,10 +78,12 @@ public class Download {
       // Emit warning when using an archived JDK build
       if (website.isArchivedUri(uri)) {
         GitHub.warn(
-                """
-                        JDK resolved to an archived build!
-                        These older versions of the JDK are provided to help developers debug issues in older systems.
-                        They are not updated with the latest security patches and are not recommended for use in production.""");
+            """
+            JDK resolved to an archived build!
+            These older versions of the JDK are provided to help developers debug issues in older systems.
+            They are not updated with the latest security patches and are not recommended for use in production.
+            """
+        );
       }
 
       // Acquire JDK archive
