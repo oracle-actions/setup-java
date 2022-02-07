@@ -362,6 +362,7 @@ public class Download {
   static class JavaNetWebsite implements Website {
     static String NAME = "jdk.java.net";
     static String URI_PREFIX = "https://download.java.net";
+    static /*lazy*/ Properties URI_MAPPING = null;
 
     @Override
     public List<Pattern> parseVersionPatterns() {
@@ -377,26 +378,23 @@ public class Download {
               .add(jdk.os)
               .add(jdk.arch)
               .toString();
-      try {
-        var defaultProperties = new Properties();
-        var file = Path.of("jdk.java.net-uri.properties");
-        if (Files.exists(file)) {
-          defaultProperties.load(new StringReader(Files.readString(file)));
+      if (URI_MAPPING == null) {
+        try {
+          URI_MAPPING = new Properties();
+          var browser = new Browser();
+          var s =
+              browser.browse(
+                  "https://raw.githubusercontent.com"
+                      + "/sormuras/jdk-java-net-overlay/main" // user/repo/branch
+                      + "/"
+                      + "jdk-uri.properties");
+          URI_MAPPING.load(new StringReader(s));
+        } catch (Exception exception) {
+          GitHub.warn("Caught exception: " + exception);
+          return Optional.empty();
         }
-        var properties = new Properties(defaultProperties);
-        var browser = new Browser();
-        var s =
-            browser.browse(
-                "https://raw.githubusercontent.com"
-                    + "/sormuras/jdk-java-net-overlay/main" // user/repo/branch
-                    + "/"
-                    + file);
-        properties.load(new StringReader(s));
-        return Optional.ofNullable(properties.getProperty(key));
-      } catch (Exception exception) {
-        GitHub.warn("Caught exception: " + exception);
-        return Optional.empty();
       }
+      return Optional.ofNullable(URI_MAPPING.getProperty(key));
     }
   }
 }
