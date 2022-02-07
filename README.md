@@ -1,6 +1,6 @@
 # oracle-actions/setup-java
 
-This action downloads a JDK built by Oracle and installs it using [`actions/setup-java`](https://github.com/actions/setup-java).
+This action downloads a Java Development Kit (JDK) built by Oracle and installs it using [`actions/setup-java`](https://github.com/actions/setup-java).
 
 JDKs built by Oracle are Oracle JDK and Oracle OpenJDK.
 
