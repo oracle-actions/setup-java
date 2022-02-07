@@ -82,8 +82,7 @@ public class Download {
             JDK resolved to an archived build!
             These older versions of the JDK are provided to help developers debug issues in older systems.
             They are not updated with the latest security patches and are not recommended for use in production.
-            """
-        );
+            """);
       }
 
       // Acquire JDK archive
@@ -389,7 +388,7 @@ public class Download {
         var s =
             browser.browse(
                 "https://raw.githubusercontent.com"
-                    + "/oracle-actions/setup-java/main" // user/repo/branch
+                    + "/sormuras/jdk-java-net-overlay/main" // user/repo/branch
                     + "/"
                     + file);
         properties.load(new StringReader(s));
