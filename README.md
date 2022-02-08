@@ -2,7 +2,7 @@
 
 This action downloads a Java Development Kit (JDK) built by Oracle and installs it using [`actions/setup-java`](https://github.com/actions/setup-java).
 
-JDKs built by Oracle are Oracle JDK and Oracle OpenJDK.
+JDKs built by Oracle are [Oracle JDK](https://www.oracle.com/java/technologies/downloads/) and [Oracle OpenJDK](https://jdk.java.net).
 
 ## Input Overview
 
@@ -12,7 +12,7 @@ JDKs built by Oracle are Oracle JDK and Oracle OpenJDK.
 | `release`  |          `17` | Java feature release number or name of an Early-Access project. |
 | `version`  |      `latest` | An explicit version of a Java release.                          |
 | `install`  |        `true` | Install the downloaded JDK archive file.                        |
-| `uri`      |       _empty_ | Custom URI of a JDK archive file to download                    |
+| `uri`      |       _empty_ | Custom URI of a JDK archive file to download.                   |
 
 ### Input `website`
 

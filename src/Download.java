@@ -370,7 +370,7 @@ public class Download {
     }
 
     @Override
-    public Optional<String> findUri(JDK jdk) {
+    public synchronized Optional<String> findUri(JDK jdk) {
       var key =
           new StringJoiner(",")
               .add(jdk.release)
@@ -385,9 +385,8 @@ public class Download {
           var s =
               browser.browse(
                   "https://raw.githubusercontent.com"
-                      + "/sormuras/jdk-java-net-overlay/main" // user/repo/branch
-                      + "/"
-                      + "jdk-uri.properties");
+                      + "/oracle-actions/setup-java/main" // user/repo/branch
+                      + "/jdk.java.net-uri.properties");
           URI_MAPPING.load(new StringReader(s));
         } catch (Exception exception) {
           GitHub.warn("Caught exception: " + exception);
