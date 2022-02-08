@@ -3,12 +3,10 @@ on:
   #  - cron: '23 */4 * * *'
   workflow_dispatch:
 
-permissions:
-  actions: write
-
 jobs:
   update-jdk-uri-properties:
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
       - uses: actions/checkout@v2
       - run: java src/ListOpenJavaDevelopmentKits.java > jdk.java.net-uri.properties
