@@ -113,7 +113,10 @@ class ListOpenJavaDevelopmentKits {
     var release = components[0];
     var version = components[1];
     try {
-      var project = version.substring(version.indexOf('-') + 1, version.indexOf('+'));
+      // extract named project or take version as-is
+      var from = version.indexOf('-');
+      var till = version.indexOf('+');
+      var project = from >= 0 && from < till ? version.substring(from + 1, till) : version;
       components[0] = project;
       components[1] = "latest";
       var alias = String.join(",", components);
