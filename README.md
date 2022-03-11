@@ -126,7 +126,7 @@ steps:
 
 ## Supported GitHub Actions Virtual Environments
 
-All [environments](https://github.com/actions/virtual-environments#available-environments) that have Java 11 pre-installed are supported.
+All [environments](https://github.com/actions/virtual-environments#available-environments) that have Java 17 pre-installed are supported.
 These include the following labels: `ubuntu-latest`, `macos-latest`, and `windows-latest`.
 
 ## Status

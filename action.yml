@@ -1,4 +1,4 @@
-name: 'Setup Oracle JDK'
+name: 'Setup Java Development Kits built by Oracle'
 description: 'Download and set up a JDK built by Oracle'
 
 branding:
