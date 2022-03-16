@@ -129,6 +129,10 @@ steps:
 All [environments](https://github.com/actions/virtual-environments#available-environments) that have Java 17 pre-installed are supported.
 These include the following labels: `ubuntu-latest`, `macos-latest`, and `windows-latest`.
 
+## More information
+
+Make sure to check [the annoucement and the FAQ](https://inside.java/2022/03/11/setup-java/) on Inside Java.
+
 ## Status
 
 [![.github/workflows/test.yml](https://github.com/oracle-actions/setup-java/actions/workflows/test.yml/badge.svg)](https://github.com/oracle-actions/setup-java/actions/workflows/test.yml)
