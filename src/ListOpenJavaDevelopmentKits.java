@@ -157,7 +157,7 @@ class ListOpenJavaDevelopmentKits {
   static TreeMap<String, String> parse(String html) {
     var map = new TreeMap<String, String>();
 
-    for (var line : html.lines().collect(Collectors.toList())) {
+    for (var line : html.lines().toList()) {
       var uriMatcher = URI_PATTERN.matcher(line);
       if (uriMatcher.matches()) {
         var uri = uriMatcher.group(1);
