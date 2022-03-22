@@ -39,10 +39,13 @@ import java.util.stream.Collectors;
 class ListOpenJavaDevelopmentKits {
 
   /** Current General-Availability release number. */
-  static final String GA = System.getProperty("GA", "17");
+  static final String GA = System.getProperty("GA", "18");
+
+  /** Current Soon-Archived release number. */
+  static final String SA = System.getProperty("SA", "17");
 
   /** Early-Access Releases, as comma separated names. */
-  static final String EA = System.getProperty("EA", "19,18,loom,metropolis,panama,valhalla");
+  static final String EA = System.getProperty("EA", "19,loom,metropolis,panama,valhalla");
 
   /** Include archived releases flag. */
   static final boolean ARCHIVES = Boolean.getBoolean("ARCHIVES");
@@ -66,6 +69,7 @@ class ListOpenJavaDevelopmentKits {
   public static void main(String... args) {
     if (args.length == 0) {
       listGeneralAvailabilityRelease();
+      listSoonArchivedRelease();
       listEarlyAccessReleases();
       if (ARCHIVES) listArchivedReleases();
     } else {
@@ -92,6 +96,21 @@ class ListOpenJavaDevelopmentKits {
     components[0] = "ga";
     var alias2 = String.join(",", components);
     return List.of(alias1, alias2);
+  }
+
+  static void listSoonArchivedRelease() {
+    var html = browse("https://jdk.java.net/" + SA + "/");
+    var directs = parse(html);
+    print("Soon-Archived Release", directs);
+
+    var aliases = alias(directs, ListOpenJavaDevelopmentKits::generateSoonArchivedAliasKeys);
+    print("Soon-Archived Release (Alias)", aliases);
+  }
+
+  static List<String> generateSoonArchivedAliasKeys(String[] components) {
+    components[1] = "latest";
+    var alias1 = String.join(",", components);
+    return List.of(alias1);
   }
 
   static void listEarlyAccessReleases() {
@@ -140,6 +159,7 @@ class ListOpenJavaDevelopmentKits {
 
   static List<String> generateArchivedAliasKeys(String[] components) {
     if (components[0].equals(GA)) return List.of(); // "latest" is covered by GA
+    if (components[0].equals(SA)) return List.of(); // "latest" is covered by SA
     components[1] = "latest";
     var alias = String.join(",", components);
     return List.of(alias);
