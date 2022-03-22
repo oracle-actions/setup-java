@@ -28,12 +28,14 @@ public class Test {
 
   static void checkAllOracleJDKs() {
     System.out.println();
-    System.out.println("// oracle.com - 17 - latest");
-    checkOracleJDK17("latest");
+    System.out.println("// oracle.com - latest");
+    checkOracleJDK("18", "latest");
+    checkOracleJDK("17", "latest");
 
     System.out.println();
-    System.out.println("// oracle.com - 17 - archive");
-    Stream.of("17", "17.0.1", "17.0.2").forEach(Test::checkOracleJDK17);
+    System.out.println("// oracle.com - archive");
+    Stream.of("18").forEach(version -> checkOracleJDK("18", version));
+    Stream.of("17", "17.0.1", "17.0.2").forEach(version -> checkOracleJDK("17", version));
   }
 
   static void checkAllJavaNetJDKs() {
@@ -58,12 +60,12 @@ public class Test {
     checkJavaNetJDK("valhalla", "latest");
   }
 
-  static void checkOracleJDK17(String version) {
-    checkJDK("oracle.com", new Download.JDK("17", version, "linux", "aarch64", "tar.gz"));
-    checkJDK("oracle.com", new Download.JDK("17", version, "linux", "x64", "tar.gz"));
-    checkJDK("oracle.com", new Download.JDK("17", version, "macos", "aarch64", "tar.gz"));
-    checkJDK("oracle.com", new Download.JDK("17", version, "macos", "x64", "tar.gz"));
-    checkJDK("oracle.com", new Download.JDK("17", version, "windows", "x64", "zip"));
+  static void checkOracleJDK(String release, String version) {
+    checkJDK("oracle.com", new Download.JDK(release, version, "linux", "aarch64", "tar.gz"));
+    checkJDK("oracle.com", new Download.JDK(release, version, "linux", "x64", "tar.gz"));
+    checkJDK("oracle.com", new Download.JDK(release, version, "macos", "aarch64", "tar.gz"));
+    checkJDK("oracle.com", new Download.JDK(release, version, "macos", "x64", "tar.gz"));
+    checkJDK("oracle.com", new Download.JDK(release, version, "windows", "x64", "zip"));
   }
 
   static void checkJavaNetJDK(String release, String version) {
