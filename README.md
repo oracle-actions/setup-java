@@ -36,11 +36,11 @@ Following values are supported:
 The `release` input denotes a Java feature release number (`17`, `18`, ...) or a name of an Early-Access project (`loom`, ...).
 It defaults to the current General-Availability Release for the Java SE platform., which is `18` as of today.
 
-Note that websites may support a different set of releases.
-For example, `oracle.com` only supports releases above `17` and does not support Early-Access projects.
+Note that websites may offer a discrepant set of available releases.
+For example, `oracle.com` only offers releases above `17` and does not support Early-Access project releases.
 
-Note also that websites may stop supporting any release at any time.
-Please consult the website for details which release is supported how long.
+Note also that websites may stop offering any release at any time.
+Please consult the website for details which release is offered for how long.
 
 ### Input `version`
 
