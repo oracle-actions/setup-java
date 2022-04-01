@@ -1,4 +1,4 @@
-name: 'Setup Oracle JDK'
+name: 'Setup Java Development Kits built by Oracle'
 description: 'Download and set up a JDK built by Oracle'
 
 branding:
@@ -11,9 +11,9 @@ inputs:
     required: true
     default: 'oracle.com'
   release:
-    description: 'Feature release number or project name, defaults to `17`'
+    description: 'Feature release number or project name, defaults to `18`'
     required: true
-    default: '17'
+    default: '18'
   version:
     description: 'Additional version information, defaults to `latest`'
     required: true
@@ -50,7 +50,7 @@ runs:
         fi
     - name: 'Install Java Development Kit'
       if: ${{ inputs.install  == 'true' }}
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v3
       with:
         java-version: ${{ steps.download.outputs.version }}
         distribution: jdkfile

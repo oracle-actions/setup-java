@@ -9,7 +9,7 @@ JDKs built by Oracle are [Oracle JDK](https://www.oracle.com/java/technologies/d
 | Input Name | Default Value | Description                                                     |
 |------------|--------------:|-----------------------------------------------------------------|
 | `website`  |  `oracle.com` | From where the JDK should be downloaded from.                   |
-| `release`  |          `17` | Java feature release number or name of an Early-Access project. |
+| `release`  |          `18` | Java feature release number or name of an Early-Access project. |
 | `version`  |      `latest` | An explicit version of a Java release.                          |
 | `install`  |        `true` | Install the downloaded JDK archive file.                        |
 | `uri`      |       _empty_ | Custom URI of a JDK archive file to download.                   |
@@ -34,7 +34,13 @@ Following values are supported:
 ### Input `release`
 
 The `release` input denotes a Java feature release number (`17`, `18`, ...) or a name of an Early-Access project (`loom`, ...).
-It defaults to the latest long-term support release for the Java SE platform., which is `17` as of today.
+It defaults to the current General-Availability Release for the Java SE platform., which is `18` as of today.
+
+Note that websites may offer a different set of available releases.
+For example, `oracle.com` only offers releases of `17` and above; it does not offer any Early-Access releases.
+
+Note also that websites may stop offering any release at any time.
+Please consult the website for details which release is offered for how long.
 
 ### Input `version`
 
@@ -126,8 +132,12 @@ steps:
 
 ## Supported GitHub Actions Virtual Environments
 
-All [environments](https://github.com/actions/virtual-environments#available-environments) that have Java 11 pre-installed are supported.
+All [environments](https://github.com/actions/virtual-environments#available-environments) that have Java 17 pre-installed are supported.
 These include the following labels: `ubuntu-latest`, `macos-latest`, and `windows-latest`.
+
+## More information
+
+Make sure to check [the annoucement and the FAQ](https://inside.java/2022/03/11/setup-java/) on Inside Java.
 
 ## Status
 

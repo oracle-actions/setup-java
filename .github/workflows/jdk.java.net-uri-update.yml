@@ -8,8 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
+      - run: curl --output /dev/null --silent --head --fail https://jdk.java.net
       - uses: actions/checkout@v2
-      - run: java src/ListOpenJavaDevelopmentKits.java > jdk.java.net-uri.properties
+      - run: $JAVA_HOME_17_X64/bin/java src/ListOpenJavaDevelopmentKits.java > jdk.java.net-uri.properties
       - run: |
           git diff
           git config user.name github-actions
