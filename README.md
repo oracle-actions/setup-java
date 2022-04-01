@@ -9,7 +9,7 @@ JDKs built by Oracle are [Oracle JDK](https://www.oracle.com/java/technologies/d
 | Input Name | Default Value | Description                                                     |
 |------------|--------------:|-----------------------------------------------------------------|
 | `website`  |  `oracle.com` | From where the JDK should be downloaded from.                   |
-| `release`  |          `17` | Java feature release number or name of an Early-Access project. |
+| `release`  |          `18` | Java feature release number or name of an Early-Access project. |
 | `version`  |      `latest` | An explicit version of a Java release.                          |
 | `install`  |        `true` | Install the downloaded JDK archive file.                        |
 | `uri`      |       _empty_ | Custom URI of a JDK archive file to download.                   |
@@ -34,7 +34,13 @@ Following values are supported:
 ### Input `release`
 
 The `release` input denotes a Java feature release number (`17`, `18`, ...) or a name of an Early-Access project (`loom`, ...).
-It defaults to the latest long-term support release for the Java SE platform., which is `17` as of today.
+It defaults to the current General-Availability Release for the Java SE platform., which is `18` as of today.
+
+Note that websites may support a different set of releases.
+For example, `oracle.com` only supports releases above `17` and does not support Early-Access projects.
+
+Note also that websites may stop supporting any release at any time.
+Please consult the website for details which release is supported how long.
 
 ### Input `version`
 
