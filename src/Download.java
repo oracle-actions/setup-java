@@ -293,7 +293,19 @@ public class Download {
     default Optional<String> parseVersion(String uri) {
       for (var versionPattern : parseVersionPatterns()) {
         var matcher = versionPattern.matcher(uri);
-        if (matcher.matches()) return Optional.of(matcher.group(1));
+        if (matcher.matches()) {
+          // "$FEATURE.$INTERIM.$UPDATE.$PATCH"
+          var version = Runtime.Version.parse(matcher.group(1));
+          var joiner = new StringJoiner(".");
+          joiner.add(String.valueOf(version.feature()));
+          if (version.interim() != 0) {
+            joiner.add(String.valueOf(version.interim()));
+            if (version.update() != 0) {
+              joiner.add(String.valueOf(version.update()));
+            }
+          }
+          return Optional.of(joiner.toString());
+        }
       }
       return Optional.empty();
     }
