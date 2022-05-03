@@ -298,7 +298,7 @@ public class Download {
           var version = Runtime.Version.parse(matcher.group(1));
           var joiner = new StringJoiner(".");
           joiner.add(String.valueOf(version.feature()));
-          if (version.interim() != 0) {
+          if (version.interim() != 0 || version.update() != 0) {
             joiner.add(String.valueOf(version.interim()));
             if (version.update() != 0) {
               joiner.add(String.valueOf(version.update()));
