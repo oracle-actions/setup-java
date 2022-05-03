@@ -34,7 +34,7 @@ public class Test {
 
     System.out.println();
     System.out.println("// oracle.com - archive");
-    Stream.of("18").forEach(version -> checkOracleJDK("18", version));
+    Stream.of("18", "18.0.1", "18.0.1.1").forEach(version -> checkOracleJDK("18", version));
     Stream.of("17", "17.0.1", "17.0.2").forEach(version -> checkOracleJDK("17", version));
   }
 
