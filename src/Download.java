@@ -98,7 +98,8 @@ public class Download {
 
       // Set outputs
       outputs.put("archive", archive.toString());
-      outputs.put("version", website.computeVersionString(uri));
+      var digit = Character.isDigit(jdk.version().charAt(0));
+      outputs.put("version", website.computeVersionString(uri, digit ? "PARSE_URI" : "HASH_URI"));
     } catch (Exception exception) {
       exception.printStackTrace(System.err);
       GitHub.error("Error detected: " + exception);
@@ -289,8 +290,8 @@ public class Download {
       return cache.resolve(file);
     }
 
-    default String computeVersionString(String uri) {
-      var version = System.getProperty("install-as-version", "PARSE_URI");
+    default String computeVersionString(String uri, String defaultVersion) {
+      var version = System.getProperty("install-as-version", defaultVersion);
       return switch (version) {
         case "PARSE_URI" -> parseVersion(uri).orElse("UNKNOWN-VERSION");
         case "HASH_URI" -> Integer.toString(uri.hashCode());

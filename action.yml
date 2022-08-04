@@ -23,7 +23,9 @@ inputs:
     required: true
     default: 'true'
   install-as-version:
-    description: 'Controls which value is passed as `java-version` to actions/setup-java, defaults to `PARSE_URI`'
+    description: '
+      Controls which value is passed as `java-version` to actions/setup-java, defaults to `PARSE_URI`
+      if `release` starts with a digit, else it defaults to `HASH_URI`'
     default: 'PARSE_URI'
     required: true
   uri:
