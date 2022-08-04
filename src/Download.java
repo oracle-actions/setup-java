@@ -291,7 +291,9 @@ public class Download {
     }
 
     default String computeVersionString(String uri, String defaultVersion) {
-      var version = System.getProperty("install-as-version", defaultVersion);
+      var property = System.getProperty("install-as-version");
+      GitHub.debug("install-as-version: " + property);
+      var version = property == null || property.isBlank() ? defaultVersion : property;
       return switch (version) {
         case "PARSE_URI" -> parseVersion(uri).orElse("UNKNOWN-VERSION");
         case "HASH_URI" -> Integer.toString(uri.hashCode());
