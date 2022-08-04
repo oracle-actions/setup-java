@@ -19,9 +19,13 @@ inputs:
     required: true
     default: 'latest'
   install:
-    description: 'Install the downloaded JDK archive file by running actions/setup-java, default to `true`'
+    description: 'Install the downloaded JDK archive file by running actions/setup-java, defaults to `true`'
     required: true
     default: 'true'
+  install-as-version:
+    description: 'Controls which value is passed as `java-version` to actions/setup-java, defaults to `PARSE_URI`'
+    default: 'PARSE_URI'
+    required: true
   uri:
     description: 'URI of JDK archive file to download'
     required: false
@@ -44,9 +48,17 @@ runs:
         JAVA=$JAVA_HOME_17_X64/bin/java
         DOWNLOAD=$GITHUB_ACTION_PATH/src/Download.java
         if [ ! -z "${{ inputs.uri }}" ]; then
-          $JAVA $DOWNLOAD ${{ inputs.uri }}
+          $JAVA \
+            -Dinstall-as-version="${{ inputs.install-as-version }}"
+            $DOWNLOAD \
+            ${{ inputs.uri }}
         else
-          $JAVA $DOWNLOAD ${{ inputs.website }} ${{ inputs.release }} ${{ inputs.version }}
+          $JAVA \
+            -Dinstall-as-version="${{ inputs.install-as-version }}"
+            $DOWNLOAD \
+            ${{ inputs.website }} \
+            ${{ inputs.release }} \
+            ${{ inputs.version }}
         fi
     - name: 'Install Java Development Kit'
       if: ${{ inputs.install  == 'true' }}
