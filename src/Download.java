@@ -98,7 +98,8 @@ public class Download {
 
       // Set outputs
       outputs.put("archive", archive.toString());
-      outputs.put("version", website.parseVersion(uri).orElse("UNKNOWN-VERSION"));
+      var digit = Character.isDigit(jdk.version().charAt(0));
+      outputs.put("version", website.computeVersionString(uri, digit ? "PARSE_URI" : "HASH_URI"));
     } catch (Exception exception) {
       exception.printStackTrace(System.err);
       GitHub.error("Error detected: " + exception);
@@ -287,6 +288,17 @@ public class Download {
       var hash = Integer.toHexString(uri.hashCode());
       var cache = Path.of(home, ".oracle-actions", "setup-java", hash);
       return cache.resolve(file);
+    }
+
+    default String computeVersionString(String uri, String defaultVersion) {
+      var property = System.getProperty("install-as-version");
+      GitHub.debug("install-as-version: " + property);
+      var version = property == null || property.isBlank() ? defaultVersion : property;
+      return switch (version) {
+        case "PARSE_URI" -> parseVersion(uri).orElse("UNKNOWN-VERSION");
+        case "HASH_URI" -> Integer.toString(uri.hashCode());
+        default -> version;
+      };
     }
 
     /** Try to parse version information from the given uri. */
