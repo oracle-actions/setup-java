@@ -6,13 +6,14 @@ JDKs built by Oracle are [Oracle JDK](https://www.oracle.com/java/technologies/d
 
 ## Input Overview
 
-| Input Name | Default Value | Description                                                     |
-|------------|--------------:|-----------------------------------------------------------------|
-| `website`  |  `oracle.com` | From where the JDK should be downloaded from.                   |
-| `release`  |          `18` | Java feature release number or name of an Early-Access project. |
-| `version`  |      `latest` | An explicit version of a Java release.                          |
-| `install`  |        `true` | Install the downloaded JDK archive file.                        |
-| `uri`      |       _empty_ | Custom URI of a JDK archive file to download.                   |
+| Input Name            | Default Value | Description                                                     |
+|-----------------------|--------------:|-----------------------------------------------------------------|
+| `website`             |  `oracle.com` | From where the JDK should be downloaded from.                   |
+| `release`             |          `18` | Java feature release number or name of an Early-Access project. |
+| `version`             |      `latest` | An explicit version of a Java release.                          |
+| `install`             |        `true` | Install the downloaded JDK archive file.                        |
+| `install-as-version`  |       _empty_ | Control the value passed as `java-version`                      |
+| `uri`                 |       _empty_ | Custom URI of a JDK archive file to download.                   |
 
 ### Input `website`
 
@@ -63,6 +64,19 @@ It is enabled by default by using `true` as its value.
 
 This action delegates to [`actions/setup-java`](https://github.com/actions/setup-java) in order to install the downloaded JDK archive file using default
 Pass `false` to skip the automatic JDK installation and invoke `actions/setup-java` with your custom settings.
+
+### Input `install-as-version`
+
+The `install-as-version` input allows overriding the value passed as `java-version` to the underlying `actions/setup-java` action.
+
+Supported values of `install-as-version` include:
+- `PARSE_URI` parses the computed or given URI for a valid Java version string, ex. `17.0.1`.
+- `HASH_URI` returns the `hashCode()` of the computed or given URI as a string, ex. `12345`.
+- All strings [supported by `actions/setup-java`](https://github.com/actions/setup-java#supported-version-syntax)
+
+The default value of `install-as-version` depends on the `release` input documented above:
+- If `release` input starts with a digit, `install-as-version` defaults to `PARSE_URI`.
+- If `release` input does not start with a digit, `install-as-version` defaults to `HASH_URI`.
 
 ### Input `uri`
 
