@@ -6,8 +6,8 @@ This project uses tags and branches for [release management](https://docs.github
 
 
 ## [Unreleased]
-
-_nothing notable, yet_
+### Fixed
+- Default `install-as-version` value computation
 
 ## [1.2.0] - 2022-08-08
 ### Added
