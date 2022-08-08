@@ -98,7 +98,7 @@ public class Download {
 
       // Set outputs
       outputs.put("archive", archive.toString());
-      var digit = Character.isDigit(jdk.version().charAt(0));
+      var digit = Character.isDigit(jdk.release.charAt(0));
       outputs.put("version", website.computeVersionString(uri, digit ? "PARSE_URI" : "HASH_URI"));
     } catch (Exception exception) {
       exception.printStackTrace(System.err);
@@ -296,7 +296,7 @@ public class Download {
       var version = property == null || property.isBlank() ? defaultVersion : property;
       return switch (version) {
         case "PARSE_URI" -> parseVersion(uri).orElse("UNKNOWN-VERSION");
-        case "HASH_URI" -> Integer.toString(uri.hashCode());
+        case "HASH_URI" -> Integer.toString(Math.abs(uri.hashCode()));
         default -> version;
       };
     }

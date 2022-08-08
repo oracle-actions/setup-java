@@ -6,8 +6,11 @@ This project uses tags and branches for [release management](https://docs.github
 
 
 ## [Unreleased]
+_nothing notable_
 
-_nothing notable, yet_
+## [1.2.1] - 2022-08-08
+### Fixed
+- Default `install-as-version` value computation
 
 ## [1.2.0] - 2022-08-08
 ### Added
@@ -31,9 +34,10 @@ _nothing notable, yet_
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/oracle-actions/setup-java/compare/v1.2.0...HEAD
-[1.2.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.1.2...v1.2.0
-[1.1.2]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.1.1...v1.1.2
-[1.1.1]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.1.0...v1.1.1
-[1.1.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.0.0...v1.1.0
+[Unreleased]: https://github.com/oracle-actions/setup-java/compare/v1.2.1...HEAD
+[1.2.1]: https://github.com/oracle-actions/setup-java/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/oracle-actions/setup-java/compare/v1.1.2...v1.2.0
+[1.1.2]: https://github.com/oracle-actions/setup-java/compare/v1.1.1...v1.1.2
+[1.1.1]: https://github.com/oracle-actions/setup-java/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/oracle-actions/setup-java/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/oracle-actions/setup-java/releases/tag/v1.0.0
