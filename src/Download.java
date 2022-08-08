@@ -296,7 +296,7 @@ public class Download {
       var version = property == null || property.isBlank() ? defaultVersion : property;
       return switch (version) {
         case "PARSE_URI" -> parseVersion(uri).orElse("UNKNOWN-VERSION");
-        case "HASH_URI" -> Integer.toString(uri.hashCode());
+        case "HASH_URI" -> Integer.toString(Math.abs(uri.hashCode()));
         default -> version;
       };
     }
