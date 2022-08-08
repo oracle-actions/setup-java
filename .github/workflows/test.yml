@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    name: "Test"
+    name: "Test Download"
     runs-on: ubuntu-latest
     steps:
       - name: 'Check out repository'
@@ -18,3 +18,14 @@ jobs:
           PATH=$JAVA_HOME_17_X64/bin:$PATH
           javac -d classes src/Download.java test/Test.java
           java -cp classes Test
+  validate:
+    name: "Validate Values"
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Check out repository'
+        uses: actions/checkout@v2
+      - name: 'Run validation program'
+        shell: bash
+        run: |
+          PATH=$JAVA_HOME_17_X64/bin:$PATH
+          java test/Validate.java
