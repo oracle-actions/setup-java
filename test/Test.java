@@ -29,6 +29,7 @@ public class Test {
   static void checkAllOracleJDKs() {
     System.out.println();
     System.out.println("// oracle.com - latest");
+    checkOracleJDK("19", "latest");
     checkOracleJDK("18", "latest");
     checkOracleJDK("17", "latest");
 

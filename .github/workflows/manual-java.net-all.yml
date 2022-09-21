@@ -9,7 +9,7 @@ jobs:
       max-parallel: 3
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
-        release: [ 19, 18, 17 ]
+        release: [ 20, 19, 18 ]
     runs-on: ${{ matrix.os }}
     steps:
       - name: 'Check out repository'
@@ -37,9 +37,9 @@ jobs:
       max-parallel: 3
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
-        project: [ Loom, Panama, Valhalla ]
+        project: [ jextract, loom, panama, valhalla ]
         exclude:
-          - { os: macos-latest, project: Valhalla } # missing 'libjli.dylib'
+          - { os: macos-latest, project: valhalla } # missing 'libjli.dylib'
     runs-on: ${{ matrix.os }}
     steps:
       - name: 'Check out repository'
