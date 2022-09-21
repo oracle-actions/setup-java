@@ -6,7 +6,8 @@ This project uses tags and branches for [release management](https://docs.github
 
 
 ## [Unreleased]
-_nothing notable_
+### Changed
+- Default value of `release` input to Java `19`
 
 ## [1.2.1] - 2022-08-08
 ### Fixed
