@@ -6,6 +6,9 @@ This project uses tags and branches for [release management](https://docs.github
 
 
 ## [Unreleased]
+_nothing notable, yet_
+
+## [1.3.0] - 2022-09-21
 ### Changed
 - Default value of `release` input to Java `19`
 
@@ -35,7 +38,8 @@ This project uses tags and branches for [release management](https://docs.github
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/oracle-actions/setup-java/compare/v1.2.1...HEAD
+[Unreleased]: https://github.com/oracle-actions/setup-java/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/oracle-actions/setup-java/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/oracle-actions/setup-java/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/oracle-actions/setup-java/compare/v1.1.2...v1.2.0
 [1.1.2]: https://github.com/oracle-actions/setup-java/compare/v1.1.1...v1.1.2
