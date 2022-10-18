@@ -5,6 +5,11 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.nio.file.StandardOpenOption.APPEND;
+import static java.nio.file.StandardOpenOption.CREATE;
+import static java.nio.file.StandardOpenOption.WRITE;
+
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -218,7 +223,24 @@ public class Download {
   static class GitHub {
     /** Sets an action's output parameter. */
     static void setOutput(String name, Object value) {
-      System.out.printf("::set-output name=%s::%s%n", name, value);
+      if (name.isBlank() || value.toString().isBlank()) { // implicit null checks included
+        throw new IllegalArgumentException("name or value are blank: " + name + "=" + value);
+      }
+      var githubEnv = System.getenv("GITHUB_ENV");
+      if (githubEnv == null) {
+        throw new AssertionError("No such environment variable: GITHUB_ENV");
+      }
+      try {
+        var file = Path.of(githubEnv);
+        if (file.getParent() != null) Files.createDirectories(file.getParent());
+        var lines = (name + "=" + value).lines().toList();
+        if (lines.size() != 1) {
+          throw new UnsupportedOperationException("Multiline strings are no supported");
+        }
+        Files.write(file, lines, UTF_8, CREATE, APPEND, WRITE);
+      } catch (IOException exception) {
+        throw new UncheckedIOException(exception);
+      }  
     }
 
     /** Creates a debug message and prints the message to the log. */
