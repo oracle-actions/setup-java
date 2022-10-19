@@ -109,7 +109,14 @@ public class Download {
       exception.printStackTrace(System.err);
       GitHub.error("Error detected: " + exception);
     } finally {
-      outputs.forEach(GitHub::setOutput);
+      if (dryRun) {
+        System.out.println("Dry-run of run with " + List.of(args));
+        for (var output : outputs.entrySet()) {
+          System.out.println(" - " + output.getKey() + '=' + output.getValue());
+        }
+      } else {
+        outputs.forEach(GitHub::setOutput);
+      }
     }
   }
 
