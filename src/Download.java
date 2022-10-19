@@ -230,19 +230,15 @@ public class Download {
   static class GitHub {
     /** Sets an action's output parameter. */
     static void setOutput(String name, Object value) {
-      if (Boolean.getBoolean(/*-D*/ "eprecatedSetOutput")) {
-        System.out.printf("::set-output name=%s::%s%n", name, value);
-        return;
-      }
       if (name.isBlank() || value.toString().isBlank()) { // implicit null checks included
         throw new IllegalArgumentException("name or value are blank: " + name + "=" + value);
       }
-      var githubEnv = System.getenv("GITHUB_ENV");
-      if (githubEnv == null) {
-        throw new AssertionError("No such environment variable: GITHUB_ENV");
+      var githubOutput = System.getenv("GITHUB_OUTPUT");
+      if (githubOutput == null) {
+        throw new AssertionError("No such environment variable: GITHUB_OUTPUT");
       }
       try {
-        var file = Path.of(githubEnv);
+        var file = Path.of(githubOutput);
         if (file.getParent() != null) Files.createDirectories(file.getParent());
         var lines = (name + "=" + value).lines().toList();
         if (lines.size() != 1) {

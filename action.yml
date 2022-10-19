@@ -50,13 +50,11 @@ runs:
         DOWNLOAD=$GITHUB_ACTION_PATH/src/Download.java
         if [ ! -z "${{ inputs.uri }}" ]; then
           $JAVA \
-            -DeprecatedSetOutput=true \
             -Dinstall-as-version="${{ inputs.install-as-version }}" \
             $DOWNLOAD \
             ${{ inputs.uri }}
         else
           $JAVA \
-            -DeprecatedSetOutput=true \
             -Dinstall-as-version="${{ inputs.install-as-version }}" \
             $DOWNLOAD \
             ${{ inputs.website }} \
