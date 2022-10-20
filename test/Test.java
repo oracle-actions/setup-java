@@ -30,7 +30,6 @@ public class Test {
     System.out.println();
     System.out.println("// oracle.com - latest");
     checkOracleJDK("19", "latest");
-    checkOracleJDK("18", "latest");
     checkOracleJDK("17", "latest");
 
     System.out.println();
@@ -47,6 +46,10 @@ public class Test {
     System.out.println();
     System.out.println("// jdk.java.net - EA - latest");
     checkJavaNetJDK("ea", "latest");
+
+    // System.out.println();
+    // System.out.println("// jdk.java.net - Project Generational ZGC - latest");
+    // checkJavaNetJDK("genzgc", "latest"); // TODO Activate on macos publication
 
     System.out.println();
     System.out.println("// jdk.java.net - Project Loom - latest");
