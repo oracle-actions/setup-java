@@ -28,8 +28,8 @@ Following values are supported:
 
 - [`jdk.java.net`](https://jdk.java.net) for the current OpenJDK General Availability build and for OpenJDK Early-Access builds.
 
-  Early-Access builds include the [mainline](https://github.com/openjdk/jdk/tags) JDK, and project Loom, Panama, and Valhalla.
- 
+  Early-Access builds include the [mainline](https://github.com/openjdk/jdk/tags) JDK, Generational ZGC, Project Loom and jextract, Panama, Valhalla, etc.
+
   The [jdk.java.net-uri.properties](jdk.java.net-uri.properties) file provides a set of key-value pairs mapping OpenJDK descriptions to their download links.
 
 ### Input `release`
