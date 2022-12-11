@@ -47,9 +47,9 @@ public class Test {
     System.out.println("// jdk.java.net - EA - latest");
     checkJavaNetJDK("ea", "latest");
 
-    // System.out.println();
-    // System.out.println("// jdk.java.net - Project Generational ZGC - latest");
-    // checkJavaNetJDK("genzgc", "latest"); // TODO Activate on macos publication
+    System.out.println();
+    System.out.println("// jdk.java.net - Project Generational ZGC - latest");
+    checkJavaNetJDK("genzgc", "latest");
 
     // https://github.com/oracle-actions/setup-java/issues/51
     // System.out.println();
