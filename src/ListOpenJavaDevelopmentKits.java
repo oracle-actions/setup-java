@@ -39,13 +39,13 @@ import java.util.stream.Collectors;
 class ListOpenJavaDevelopmentKits {
 
   /** Current General-Availability release number. */
-  static final String GA = System.getProperty("GA", "19");
+  static final String GA = System.getProperty("GA", "20");
 
   /** Current Soon-Archived release number. */
-  static final String SA = System.getProperty("SA", "18");
+  static final String SA = System.getProperty("SA", "19");
 
   /** Early-Access Releases, as comma separated names. */
-  static final String EA = System.getProperty("EA", "21,20,genzgc,jextract,loom,metropolis,panama,valhalla");
+  static final String EA = System.getProperty("EA", "21,genzgc,jextract,loom,metropolis,panama,valhalla");
 
   /** Include archived releases flag. */
   static final boolean ARCHIVES = Boolean.getBoolean("ARCHIVES");
