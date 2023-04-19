@@ -29,11 +29,12 @@ public class Test {
   static void checkAllOracleJDKs() {
     System.out.println();
     System.out.println("// oracle.com - latest");
-    checkOracleJDK("19", "latest");
+    checkOracleJDK("20", "latest");
     checkOracleJDK("17", "latest");
 
     System.out.println();
     System.out.println("// oracle.com - archive");
+    Stream.of("19", "19.0.2", "19.0.2").forEach(version -> checkOracleJDK("19", version));
     Stream.of("18", "18.0.1", "18.0.1.1").forEach(version -> checkOracleJDK("18", version));
     Stream.of("17", "17.0.1", "17.0.2").forEach(version -> checkOracleJDK("17", version));
   }
