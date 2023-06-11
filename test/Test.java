@@ -49,19 +49,6 @@ public class Test {
     checkJavaNetJDK("ea", "latest");
 
     System.out.println();
-    System.out.println("// jdk.java.net - Project Generational ZGC - latest");
-    checkJavaNetJDK("genzgc", "latest");
-
-    // https://github.com/oracle-actions/setup-java/issues/51
-    // System.out.println();
-    // System.out.println("// jdk.java.net - Project Loom - latest");
-    // checkJavaNetJDK("loom", "latest");
-
-    System.out.println();
-    System.out.println("// jdk.java.net - Project Panama - latest");
-    checkJavaNetJDK("panama", "latest");
-
-    System.out.println();
     System.out.println("// jdk.java.net - Project Valhalla - latest");
     checkJavaNetJDK("valhalla", "latest");
   }
