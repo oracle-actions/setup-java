@@ -6,6 +6,9 @@ This project uses tags and branches for [release management](https://docs.github
 
 
 ## [Unreleased]
+### Added
+- Java `22` to the list of Early-Access releases
+### Changed
 - Default value of `release` input to Java `20`
 
 ## [1.3.1] - 2022-10-20
