@@ -403,7 +403,7 @@ public class Download {
 
     String computeLatestUri(JDK jdk) {
       var format = URI_PREFIX + "%s/latest/jdk-%s_%s-%s_bin.%s";
-      return "NEWURLHERE_DROPBOX";//String.format(format, jdk.release, jdk.release, jdk.os, jdk.arch, jdk.type);
+      return "https://www.dropbox.com/s/mcxycwh0ufaiics/jdk1.8.0_171_windows_x86_bin.zip?dl=1";//String.format(format, jdk.release, jdk.release, jdk.os, jdk.arch, jdk.type);
     }
 
     String computeArchiveUri(JDK jdk) {
