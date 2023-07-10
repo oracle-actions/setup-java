@@ -396,14 +396,14 @@ public class Download {
 
     @Override
     public Optional<String> findUri(JDK jdk) {
-      if (Integer.parseInt(jdk.release) < 17) return Optional.empty();
+      if (Integer.parseInt(jdk.release) < 5) return Optional.empty();
       if (jdk.version.equals("latest")) return Optional.of(computeLatestUri(jdk));
       return Optional.of(computeArchiveUri(jdk));
     }
 
     String computeLatestUri(JDK jdk) {
       var format = URI_PREFIX + "%s/latest/jdk-%s_%s-%s_bin.%s";
-      return String.format(format, jdk.release, jdk.release, jdk.os, jdk.arch, jdk.type);
+      return "NEWURLHERE_DROPBOX";//String.format(format, jdk.release, jdk.release, jdk.os, jdk.arch, jdk.type);
     }
 
     String computeArchiveUri(JDK jdk) {
