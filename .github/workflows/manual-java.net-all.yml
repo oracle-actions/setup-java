@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: 'Check out repository'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: 'Set up JDK'
         id: setup
         uses: ./
@@ -43,7 +43,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: 'Check out repository'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: 'Set up JDK'
         id: setup
         uses: ./
