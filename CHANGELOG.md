@@ -6,10 +6,13 @@ This project uses tags and branches for [release management](https://docs.github
 
 
 ## [Unreleased]
+_nothing noteworthy, yet_
+
+## [1.3.2] - 2023-09-19
 ### Added
 - Java `22` to the list of Early-Access releases
 ### Changed
-- Default value of `release` input to Java `20`
+- Default value of `release` input to Java `21`
 
 ## [1.3.1] - 2022-10-20
 ### Added
@@ -47,7 +50,8 @@ This project uses tags and branches for [release management](https://docs.github
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/oracle-actions/setup-java/compare/v1.3.1...HEAD
+[Unreleased]: https://github.com/oracle-actions/setup-java/compare/v1.3.2...HEAD
+[1.3.2]: https://github.com/oracle-actions/setup-java/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/oracle-actions/setup-java/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/oracle-actions/setup-java/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/oracle-actions/setup-java/compare/v1.2.0...v1.2.1

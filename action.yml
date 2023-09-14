@@ -11,9 +11,9 @@ inputs:
     required: true
     default: 'oracle.com'
   release:
-    description: 'Feature release number or project name, defaults to `20`'
+    description: 'Feature release number or project name, defaults to `21`'
     required: true
-    default: '20'
+    default: '21'
   version:
     description: 'Additional version information, defaults to `latest`'
     required: true

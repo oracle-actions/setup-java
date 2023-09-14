@@ -9,7 +9,7 @@ jobs:
       max-parallel: 3
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
-        release: [ 20, 19, 18 ]
+        release: [ 22, 21, 20 ]
     runs-on: ${{ matrix.os }}
     steps:
       - name: 'Check out repository'
