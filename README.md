@@ -9,7 +9,7 @@ JDKs built by Oracle are [Oracle JDK](https://www.oracle.com/java/technologies/d
 | Input Name            | Default Value | Description                                                     |
 |-----------------------|--------------:|-----------------------------------------------------------------|
 | `website`             |  `oracle.com` | From where the JDK should be downloaded from.                   |
-| `release`             |          `19` | Java feature release number or name of an Early-Access project. |
+| `release`             |          `21` | Java feature release number or name of an Early-Access project. |
 | `version`             |      `latest` | An explicit version of a Java release.                          |
 | `install`             |        `true` | Install the downloaded JDK archive file.                        |
 | `install-as-version`  |       _empty_ | Control the value passed as `java-version`                      |
@@ -28,14 +28,14 @@ Following values are supported:
 
 - [`jdk.java.net`](https://jdk.java.net) for the current OpenJDK General Availability build and for OpenJDK Early-Access builds.
 
-  Early-Access builds include the [mainline](https://github.com/openjdk/jdk/tags) JDK, and project Loom, Panama, and Valhalla.
- 
+  Early-Access builds include the [mainline](https://github.com/openjdk/jdk/tags) JDK, Generational ZGC, Project Loom and jextract, Panama, Valhalla, etc.
+
   The [jdk.java.net-uri.properties](jdk.java.net-uri.properties) file provides a set of key-value pairs mapping OpenJDK descriptions to their download links.
 
 ### Input `release`
 
 The `release` input denotes a Java feature release number (`17`, `18`, ...) or a name of an Early-Access project (`loom`, ...).
-It defaults to the current General-Availability Release for the Java SE platform., which is `19` as of today.
+It defaults to the current General-Availability Release for the Java SE platform., which is `21` as of today.
 
 Note that websites may offer a different set of available releases.
 For example, `oracle.com` only offers releases of `17` and above; it does not offer any Early-Access releases.
@@ -91,11 +91,11 @@ The following examples use the [JDK Script Friendly URLs](https://www.oracle.com
 
 ```yaml
 steps:
-  - name: 'Set up latest Oracle JDK 17'
+  - name: 'Set up latest Oracle JDK 21'
     uses: oracle-actions/setup-java@v1
     with:
       website: oracle.com
-      release: 17
+      release: 21
 ```
 
 ### Download and install a specific version of Oracle JDK
@@ -151,7 +151,7 @@ These include the following labels: `ubuntu-latest`, `macos-latest`, and `window
 
 ## More information
 
-Make sure to check [the annoucement and the FAQ](https://inside.java/2022/03/11/setup-java/) on Inside Java.
+Make sure to check [the announcement and the FAQ](https://inside.java/2022/03/11/setup-java/) on Inside Java.
 
 ## Status
 

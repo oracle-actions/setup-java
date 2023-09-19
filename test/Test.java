@@ -29,11 +29,13 @@ public class Test {
   static void checkAllOracleJDKs() {
     System.out.println();
     System.out.println("// oracle.com - latest");
-    checkOracleJDK("19", "latest");
+    checkOracleJDK("21", "latest");
     checkOracleJDK("17", "latest");
 
     System.out.println();
     System.out.println("// oracle.com - archive");
+    Stream.of("20", "20.0.1", "20.0.2").forEach(version -> checkOracleJDK("20", version));
+    Stream.of("19", "19.0.1", "19.0.2").forEach(version -> checkOracleJDK("19", version));
     Stream.of("18", "18.0.1", "18.0.1.1").forEach(version -> checkOracleJDK("18", version));
     Stream.of("17", "17.0.1", "17.0.2").forEach(version -> checkOracleJDK("17", version));
   }
@@ -46,18 +48,6 @@ public class Test {
     System.out.println();
     System.out.println("// jdk.java.net - EA - latest");
     checkJavaNetJDK("ea", "latest");
-
-    // System.out.println();
-    // System.out.println("// jdk.java.net - Project Generational ZGC - latest");
-    // checkJavaNetJDK("genzgc", "latest"); // TODO Activate on macos publication
-
-    System.out.println();
-    System.out.println("// jdk.java.net - Project Loom - latest");
-    checkJavaNetJDK("loom", "latest");
-
-    System.out.println();
-    System.out.println("// jdk.java.net - Project Panama - latest");
-    checkJavaNetJDK("panama", "latest");
 
     System.out.println();
     System.out.println("// jdk.java.net - Project Valhalla - latest");
