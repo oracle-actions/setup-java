@@ -46,7 +46,10 @@ runs:
       id: download
       shell: bash
       run: |
-        JAVA=$JAVA_HOME_17_X64/bin/java
+        JAVA=$JAVA_HOME_17_ARM64/bin/java
+        if [ ! -f "$JAVA" ]; then
+          JAVA=$JAVA_HOME_17_X86/bin/java
+        fi
         DOWNLOAD=$GITHUB_ACTION_PATH/src/Download.java
         if [ ! -z "${{ inputs.uri }}" ]; then
           $JAVA \
