@@ -50,11 +50,12 @@ _nothing noteworthy, yet_
 - Version of `setup-java` to `v3`
 - Default value of `release` input to Java `18`
 
-## [1.0.0] - 2014-05-31
+## [1.0.0] - 2022-02-18
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/oracle-actions/setup-java/compare/v1.3.2...HEAD
+[Unreleased]: https://github.com/oracle-actions/setup-java/compare/v1.3.3...HEAD
+[1.3.3]: https://github.com/oracle-actions/setup-java/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/oracle-actions/setup-java/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/oracle-actions/setup-java/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/oracle-actions/setup-java/compare/v1.2.1...v1.3.0
