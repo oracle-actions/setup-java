@@ -10,8 +10,8 @@ on:
           - 'oracle.com'
           - 'jdk.java.net'
       release:
-        description: 'Release release number or project name'
-        default: '17'
+        description: 'Release number or project name'
+        default: '21'
         required: true
         type: string
       version:
