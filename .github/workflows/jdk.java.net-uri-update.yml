@@ -13,7 +13,7 @@ jobs:
       - run: $JAVA_HOME_17_X64/bin/java src/ListOpenJavaDevelopmentKits.java > jdk.java.net-uri.properties
       - run: |
           git diff
-          git config user.name Oracle GitHub Actions
+          git config user.name github_actions_dev
           git config user.email github_actions_dev_grp@oracle.com
           git add .
           if [ -z "$(git status --porcelain)" ]; then
