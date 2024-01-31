@@ -15,7 +15,9 @@ jobs:
       - name: 'Compile and run test'
         shell: bash
         run: |
-          PATH=$JAVA_HOME_17_X64/bin:$PATH
+          source src/res/set_java_home.sh
+          set_java_home_env
+          PATH=${!JAVA_HOME_ENV}/bin:$PATH
           javac -d classes src/Download.java test/Test.java
           java -cp classes Test
   validate:
@@ -27,5 +29,7 @@ jobs:
       - name: 'Run validation program'
         shell: bash
         run: |
-          PATH=$JAVA_HOME_17_X64/bin:$PATH
+          source src/res/set_java_home.sh
+          set_java_home_env
+          PATH=${!JAVA_HOME_ENV}/bin:$PATH
           java test/Validate.java

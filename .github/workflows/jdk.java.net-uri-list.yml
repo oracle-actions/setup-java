@@ -11,4 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: $JAVA_HOME_17_X64/bin/java --show-version src/ListOpenJavaDevelopmentKits.java ${{ github.event.inputs.name }}
+      - run: |
+          source src/res/set_java_home.sh
+          set_java_home_env
+          ${!JAVA_HOME_ENV}/bin/java --show-version src/ListOpenJavaDevelopmentKits.java ${{ github.event.inputs.name }}

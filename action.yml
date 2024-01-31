@@ -46,7 +46,9 @@ runs:
       id: download
       shell: bash
       run: |
-        JAVA=$JAVA_HOME_17_X64/bin/java
+        source src/res/set_java_home.sh
+        set_java_home_env
+        JAVA="${!JAVA_HOME_ENV}/bin/java"
         DOWNLOAD=$GITHUB_ACTION_PATH/src/Download.java
         if [ ! -z "${{ inputs.uri }}" ]; then
           $JAVA \

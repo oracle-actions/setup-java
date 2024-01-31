@@ -10,7 +10,10 @@ jobs:
     steps:
       - run: curl --output /dev/null --silent --head --fail https://jdk.java.net
       - uses: actions/checkout@v4
-      - run: $JAVA_HOME_17_X64/bin/java src/ListOpenJavaDevelopmentKits.java > jdk.java.net-uri.properties
+      - run: |
+          source src/res/set_java_home.sh
+          set_java_home_env
+          ${!JAVA_HOME_ENV}/bin/java src/ListOpenJavaDevelopmentKits.java > jdk.java.net-uri.properties
       - run: |
           git diff
           git config user.name github_actions_dev
