@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-      - run: curl --output /dev/null --verbose --head --fail https://jdk.java.net || true
+      - run: curl --output /dev/null --verbose --head --fail https://jdk.java.net
       - uses: actions/checkout@v4
       - run: $JAVA_HOME_17_X64/bin/java src/ListOpenJavaDevelopmentKits.java > jdk.java.net-uri.properties
       - run: |
