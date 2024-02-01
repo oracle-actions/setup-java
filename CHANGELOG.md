@@ -6,7 +6,8 @@ This project uses tags and branches for [release management](https://docs.github
 
 
 ## [Unreleased]
-_nothing noteworthy, yet_
+### Fixed
+- Support running on ARM64 machines [#63](https://github.com/oracle-actions/setup-java/issues/63)
 
 ## [1.3.3] - 2024-01-29
 ### Changed
