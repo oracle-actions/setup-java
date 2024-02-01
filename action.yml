@@ -48,8 +48,9 @@ runs:
       run: |
         JAVA=$JAVA_HOME_17_X64/bin/java
         if [ ! -d "$JAVA_HOME_17_X64" ]; then
-          JAVA=$JAVA_HOME_17_ARM64/bin/java
+          JAVA=$JAVA_HOME_17_arm64/bin/java
         fi
+        $JAVA --version
         DOWNLOAD=$GITHUB_ACTION_PATH/src/Download.java
         if [ ! -z "${{ inputs.uri }}" ]; then
           $JAVA \
