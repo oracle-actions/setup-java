@@ -144,6 +144,27 @@ steps:
       release: loom # or panama, valhalla, ...
 ```
 
+### Download and install JDK code tools: jextract
+
+```yaml
+steps:
+  - name: 'Set up latest JDK code tool jextract'
+    uses: oracle-actions/setup-java@v1
+    with:
+      website: jdk.java.net
+      release: jextract
+  - name: 'Set up latest JDK 19'
+    uses: oracle-actions/setup-java@v1
+    with:
+      website: jdk.java.net
+      release: 19
+  - name: check versions
+    shell: bash
+    run: |
+      java --version
+      jextract --version
+```
+
 ## Supported GitHub Actions Virtual Environments
 
 All [environments](https://github.com/actions/virtual-environments#available-environments) that have Java 17 pre-installed are supported.
