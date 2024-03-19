@@ -29,11 +29,14 @@ public class Test {
   static void checkAllOracleJDKs() {
     System.out.println();
     System.out.println("// oracle.com - latest");
+    checkOracleJDK("22", "latest");
     checkOracleJDK("21", "latest");
     checkOracleJDK("17", "latest");
 
     System.out.println();
     System.out.println("// oracle.com - archive");
+    Stream.of("22").forEach(version -> checkOracleJDK("22", version));
+    Stream.of("21", "21.0.1", "21.0.2").forEach(version -> checkOracleJDK("21", version));
     Stream.of("20", "20.0.1", "20.0.2").forEach(version -> checkOracleJDK("20", version));
     Stream.of("19", "19.0.1", "19.0.2").forEach(version -> checkOracleJDK("19", version));
     Stream.of("18", "18.0.1", "18.0.1.1").forEach(version -> checkOracleJDK("18", version));
