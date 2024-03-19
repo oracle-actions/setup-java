@@ -8,6 +8,8 @@ This project uses tags and branches for [release management](https://docs.github
 ## [Unreleased]
 ### Fixed
 - Support running on ARM64 machines [#63](https://github.com/oracle-actions/setup-java/issues/63)
+### Changed
+- Default value of `release` input to Java `22`
 
 ## [1.3.3] - 2024-01-29
 ### Changed
