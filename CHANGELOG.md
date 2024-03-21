@@ -6,7 +6,13 @@ This project uses tags and branches for [release management](https://docs.github
 
 
 ## [Unreleased]
-_nothing noteworthy, yet_
+
+## [1.3.4] - 2024-03-24
+### Fixed
+- Support running on ARM64 machines
+### Changed
+- Default value of `release` input to Java `22`
+- Run action with pre-installed Java 21
 
 ## [1.3.3] - 2024-01-29
 ### Changed
@@ -54,7 +60,8 @@ _nothing noteworthy, yet_
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/oracle-actions/setup-java/compare/v1.3.3...HEAD
+[Unreleased]: https://github.com/oracle-actions/setup-java/compare/v1.3.4...HEAD
+[1.3.4]: https://github.com/oracle-actions/setup-java/compare/v1.3.3...v1.3.4
 [1.3.3]: https://github.com/oracle-actions/setup-java/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/oracle-actions/setup-java/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/oracle-actions/setup-java/compare/v1.3.0...v1.3.1

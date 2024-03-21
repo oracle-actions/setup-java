@@ -8,13 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-      - run: curl --output /dev/null --silent --head --fail https://jdk.java.net
+      - run: curl --output /dev/null --verbose --head --fail https://jdk.java.net
       - uses: actions/checkout@v4
-      - run: $JAVA_HOME_17_X64/bin/java src/ListOpenJavaDevelopmentKits.java > jdk.java.net-uri.properties
+      - run: $JAVA_HOME_21_X64/bin/java src/ListOpenJavaDevelopmentKits.java > jdk.java.net-uri.properties
       - run: |
           git diff
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.name github_actions_dev
+          git config user.email github_actions_dev_grp@oracle.com
           git add .
           if [ -z "$(git status --porcelain)" ]; then
             echo 'No changes detected.'

@@ -9,7 +9,7 @@ JDKs built by Oracle are [Oracle JDK](https://www.oracle.com/java/technologies/d
 | Input Name            | Default Value | Description                                                     |
 |-----------------------|--------------:|-----------------------------------------------------------------|
 | `website`             |  `oracle.com` | From where the JDK should be downloaded from.                   |
-| `release`             |          `21` | Java feature release number or name of an Early-Access project. |
+| `release`             |          `22` | Java feature release number or name of an Early-Access project. |
 | `version`             |      `latest` | An explicit version of a Java release.                          |
 | `install`             |        `true` | Install the downloaded JDK archive file.                        |
 | `install-as-version`  |       _empty_ | Control the value passed as `java-version`                      |
@@ -35,7 +35,7 @@ Following values are supported:
 ### Input `release`
 
 The `release` input denotes a Java feature release number (`17`, `18`, ...) or a name of an Early-Access project (`loom`, ...).
-It defaults to the current General-Availability Release for the Java SE platform., which is `21` as of today.
+It defaults to the current General-Availability Release for the Java SE platform., which is `22` as of today.
 
 Note that websites may offer a different set of available releases.
 For example, `oracle.com` only offers releases of `17` and above; it does not offer any Early-Access releases.
@@ -91,23 +91,23 @@ The following examples use the [JDK Script Friendly URLs](https://www.oracle.com
 
 ```yaml
 steps:
-  - name: 'Set up latest Oracle JDK 21'
+  - name: 'Set up latest Oracle JDK 22'
     uses: oracle-actions/setup-java@v1
     with:
       website: oracle.com
-      release: 21
+      release: 22
 ```
 
 ### Download and install a specific version of Oracle JDK
 
 ```yaml
 steps:
-  - name: 'Set up archived Oracle JDK 17.0.1'
+  - name: 'Set up archived Oracle JDK 17.0.10'
     uses: oracle-actions/setup-java@v1
     with:
       website: oracle.com
       release: 17
-      version: 17.0.1
+      version: 17.0.10
 ```
 ___
 
@@ -146,7 +146,7 @@ steps:
 
 ## Supported GitHub Actions Virtual Environments
 
-All [environments](https://github.com/actions/virtual-environments#available-environments) that have Java 17 pre-installed are supported.
+All [environments](https://github.com/actions/virtual-environments#available-environments) that have Java 21 pre-installed are supported.
 These include the following labels: `ubuntu-latest`, `macos-latest`, and `windows-latest`.
 
 ## More information

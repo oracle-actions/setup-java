@@ -9,6 +9,7 @@ on:
         options:
           - 'ubuntu-latest'
           - 'macos-latest'
+          - 'macos-14'
           - 'windows-latest'
       uri:
         description: 'URI of JDK archive file to download'

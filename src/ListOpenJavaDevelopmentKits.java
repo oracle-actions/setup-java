@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2022, 2024, Oracle and/or its affiliates.
  *
  * This source code is licensed under the UPL license found in the
  * LICENSE.txt file in the root directory of this source tree.
@@ -39,13 +39,13 @@ import java.util.stream.Collectors;
 class ListOpenJavaDevelopmentKits {
 
   /** Current General-Availability release number. */
-  static final String GA = System.getProperty("GA", "21");
+  static final String GA = System.getProperty("GA", "22");
 
   /** Current Soon-Archived release number. */
-  static final String SA = System.getProperty("SA", "20");
+  static final String SA = System.getProperty("SA", "21");
 
   /** Early-Access Releases, as comma separated names. */
-  static final String EA = System.getProperty("EA", "23,22,jextract,valhalla");
+  static final String EA = System.getProperty("EA", "23,jextract,loom,valhalla");
 
   /** Include archived releases flag. */
   static final boolean ARCHIVES = Boolean.getBoolean("ARCHIVES");

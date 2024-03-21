@@ -11,9 +11,9 @@ inputs:
     required: true
     default: 'oracle.com'
   release:
-    description: 'Feature release number or project name, defaults to `21`'
+    description: 'Feature release number or project name, defaults to `22`'
     required: true
-    default: '21'
+    default: '22'
   version:
     description: 'Additional version information, defaults to `latest`'
     required: true
@@ -46,7 +46,11 @@ runs:
       id: download
       shell: bash
       run: |
-        JAVA=$JAVA_HOME_17_X64/bin/java
+        JAVA=$JAVA_HOME_21_X64/bin/java
+        if [ ! -d "$JAVA_HOME_21_X64" ]; then
+          JAVA=$JAVA_HOME_21_arm64/bin/java
+        fi
+        $JAVA --version
         DOWNLOAD=$GITHUB_ACTION_PATH/src/Download.java
         if [ ! -z "${{ inputs.uri }}" ]; then
           $JAVA \
