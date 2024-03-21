@@ -102,12 +102,12 @@ steps:
 
 ```yaml
 steps:
-  - name: 'Set up archived Oracle JDK 17.0.1'
+  - name: 'Set up archived Oracle JDK 17.0.10'
     uses: oracle-actions/setup-java@v1
     with:
       website: oracle.com
       release: 17
-      version: 17.0.1
+      version: 17.0.10
 ```
 ___
 
@@ -146,7 +146,7 @@ steps:
 
 ## Supported GitHub Actions Virtual Environments
 
-All [environments](https://github.com/actions/virtual-environments#available-environments) that have Java 17 pre-installed are supported.
+All [environments](https://github.com/actions/virtual-environments#available-environments) that have Java 21 pre-installed are supported.
 These include the following labels: `ubuntu-latest`, `macos-latest`, and `windows-latest`.
 
 ## More information
