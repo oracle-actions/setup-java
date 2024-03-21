@@ -7,7 +7,7 @@ This project uses tags and branches for [release management](https://docs.github
 
 ## [Unreleased]
 
-## [1.3.4] - 2024-03-24
+## [1.3.4] - 2024-03-21
 ### Fixed
 - Support running on ARM64 machines
 ### Changed
