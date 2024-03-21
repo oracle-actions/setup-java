@@ -15,7 +15,7 @@ jobs:
       - name: 'Compile and run test'
         shell: bash
         run: |
-          PATH=$JAVA_HOME_17_X64/bin:$PATH
+          PATH=$JAVA_HOME_21_X64/bin:$PATH
           javac -d classes src/Download.java test/Test.java
           java -cp classes Test
   validate:
@@ -27,5 +27,5 @@ jobs:
       - name: 'Run validation program'
         shell: bash
         run: |
-          PATH=$JAVA_HOME_17_X64/bin:$PATH
+          PATH=$JAVA_HOME_21_X64/bin:$PATH
           java test/Validate.java
