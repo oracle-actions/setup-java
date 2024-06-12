@@ -47,6 +47,9 @@ class ListOpenJavaDevelopmentKits {
   /** Early-Access Releases, as comma separated names. */
   static final String EA = System.getProperty("EA", "24,23,jextract,loom,valhalla");
 
+  /** Current "stable" Early-Access Release number. */
+  static final String EA_STABLE = "23";
+
   /** Include archived releases flag. */
   static final boolean ARCHIVES = Boolean.getBoolean("ARCHIVES");
 
@@ -137,12 +140,18 @@ class ListOpenJavaDevelopmentKits {
       var from = version.indexOf('-');
       var till = version.indexOf('+');
       var project = from >= 0 && from < till ? version.substring(from + 1, till) : version;
+      if (project.equals("ea")) {
+        components[0] = release;
+        components[1] = "latest";
+        var aliasWithReleaseFeatureNumber = String.join(",", components);
+        components[0] = "ea";
+        components[1] = release.equals(EA_STABLE) ? "stable" : "latest";
+        var aliasWithEarlyAccessTag = String.join(",", components);
+        return List.of(aliasWithReleaseFeatureNumber, aliasWithEarlyAccessTag);
+      }
       components[0] = project;
       components[1] = "latest";
-      var alias = String.join(",", components);
-      if (!project.equals("ea")) return List.of(alias);
-      components[0] = release; // 18-latest-...
-      return List.of(alias, String.join(",", components));
+      return List.of(String.join(",", components));
     } catch (IndexOutOfBoundsException exception) {
       System.err.println("Early-Access version without `-` and `+`: " + version);
       return List.of();
