@@ -42,7 +42,7 @@ class ListOpenJavaDevelopmentKits {
   static final String GA = System.getProperty("GA", "22");
 
   /** Current Soon-Archived release number. */
-  static final String SA = System.getProperty("SA", "21");
+  static final String SA = System.getProperty("SA");
 
   /** Early-Access Releases, as comma separated names. */
   static final String EA = System.getProperty("EA", "24,23,jextract,loom,valhalla");
@@ -99,6 +99,7 @@ class ListOpenJavaDevelopmentKits {
   }
 
   static void listSoonArchivedRelease() {
+    if (SA == null || SA.isBlank()) return;
     var html = browse("https://jdk.java.net/" + SA + "/");
     var directs = parse(html);
     print("Soon-Archived Release", directs);
