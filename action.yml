@@ -46,12 +46,14 @@ runs:
       id: download
       shell: bash
       run: |
+        echo "::group::Prepare download..."
         JAVA=$JAVA_HOME_21_X64/bin/java
         if [ ! -d "$JAVA_HOME_21_X64" ]; then
           JAVA=$JAVA_HOME_21_arm64/bin/java
         fi
         $JAVA --version
         DOWNLOAD=$GITHUB_ACTION_PATH/src/Download.java
+        echo "::endgroup::"
         if [ ! -z "${{ inputs.uri }}" ]; then
           $JAVA \
             -Dinstall-as-version="${{ inputs.install-as-version }}" \
