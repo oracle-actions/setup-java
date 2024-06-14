@@ -140,18 +140,16 @@ class ListOpenJavaDevelopmentKits {
       var from = version.indexOf('-');
       var till = version.indexOf('+');
       var project = from >= 0 && from < till ? version.substring(from + 1, till) : version;
-      if (project.equals("ea")) {
-        components[0] = release;
-        components[1] = "latest";
-        var aliasWithReleaseFeatureNumber = String.join(",", components);
-        components[0] = "ea";
-        components[1] = release.equals(EA_STABLE) ? "stable" : "latest";
-        var aliasWithEarlyAccessTag = String.join(",", components);
-        return List.of(aliasWithReleaseFeatureNumber, aliasWithEarlyAccessTag);
-      }
-      components[0] = project;
+      components[0] = project; // "ea", "loom", ...
       components[1] = "latest";
-      return List.of(String.join(",", components));
+      if (!project.equals("ea")) return List.of(String.join(",", components));
+      components[0] = "ea";
+      components[1] = release.equals(EA_STABLE) ? "stable" : "latest";
+      var aliasWithEarlyAccessMode = String.join(",", components);
+      components[0] = release; // "23", "24", ...
+      components[1] = "latest";
+      var aliasWithReleaseFeatureNumber = String.join(",", components);
+      return List.of(aliasWithReleaseFeatureNumber, aliasWithEarlyAccessMode);
     } catch (IndexOutOfBoundsException exception) {
       System.err.println("Early-Access version without `-` and `+`: " + version);
       return List.of();
