@@ -6,6 +6,9 @@ This project uses tags and branches for [release management](https://docs.github
 
 
 ## [Unreleased]
+### Added
+- Java `23` and `24` to the list of Early-Access releases
+- New `version: stable` mode for `release: ea` setups
 
 ## [1.3.4] - 2024-03-21
 ### Fixed

@@ -50,10 +50,9 @@ It is set by default to `latest`.
 
 ___
 
-**WARNING!**
-
-Older versions of the JDK are provided to help developers debug issues in older systems.
-**They are not updated with the latest security patches and are not recommended for use in production.**
+> [!CAUTION]
+> Older versions of the JDK are provided to help developers debug issues in older systems.
+> **They are not updated with the latest security patches and are not recommended for use in production.**
 
 ___
 
@@ -111,10 +110,9 @@ steps:
 ```
 ___
 
-**WARNING!**
-
-Older versions of the JDK are provided to help developers debug issues in older systems.
-**They are not updated with the latest security patches and are not recommended for use in production.**
+> [!CAUTION]
+> Older versions of the JDK are provided to help developers debug issues in older systems.
+> **They are not updated with the latest security patches and are not recommended for use in production.**
 
 ___
 
@@ -132,6 +130,11 @@ steps:
       website: jdk.java.net
       release: N # Replace N with GA, EA, 17, 18, 19, ...
 ```
+
+> [!NOTE]
+> This action supports two `version` update early-access modes for `release: EA` on `jdk.java.net`:
+>   - `version: latest` updates as early as possible to the latest-and-greatest JDK build (default)
+>   - `version: stable` updates later in the release cycle, usually then a new JDK build goes GA
 
 ### Download and install an Early-Access build of a named OpenJDK project
 
