@@ -132,9 +132,9 @@ steps:
 ```
 
 > [!NOTE]
-> This action supports two `version` update early-access modes for `release: EA` on `jdk.java.net`:
+> This action supports two `version` symbolic modes for `release: EA` on `jdk.java.net`:
 >   - `version: latest` updates as early as possible to the latest-and-greatest JDK build (default)
->   - `version: stable` updates later in the release cycle, usually then a new JDK build goes GA
+>   - `version: stable` updates later in the release cycle, usually when an early-access JDK build went GA
 
 ### Download and install an Early-Access build of a named OpenJDK project
 
