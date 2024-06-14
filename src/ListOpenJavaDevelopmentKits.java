@@ -9,6 +9,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.TreeMap;
@@ -31,7 +32,7 @@ import java.util.stream.Collectors;
  *
  * <ul>
  *   <li>{@code RELEASE}: Either a release number or a name of an early-access project
- *   <li>{@code VERSION}: Either a specific version or `latest`
+ *   <li>{@code VERSION}: Either a specific version or `latest` or `stable`
  *   <li>{@code OS-NAME}: An operating system name, usually one of: `linux`, `macos`, `windows`
  *   <li>{@code OS-ARCH}: An operating system architecture, like: `aarch64`, `x64`, or `x64-musl`
  * </ul>
@@ -47,8 +48,11 @@ class ListOpenJavaDevelopmentKits {
   /** Early-Access Releases, as comma separated names. */
   static final String EA = System.getProperty("EA", "24,23,jextract,loom,valhalla");
 
+  /** Current "latest" Early-Access Release number. */
+  static final String EA_LATEST = System.getProperty("EA_LATEST", "24");
+
   /** Current "stable" Early-Access Release number. */
-  static final String EA_STABLE = "23";
+  static final String EA_STABLE = System.getProperty("EA_STABLE", "23");
 
   /** Include archived releases flag. */
   static final boolean ARCHIVES = Boolean.getBoolean("ARCHIVES");
@@ -140,16 +144,25 @@ class ListOpenJavaDevelopmentKits {
       var from = version.indexOf('-');
       var till = version.indexOf('+');
       var project = from >= 0 && from < till ? version.substring(from + 1, till) : version;
-      components[0] = project; // "ea", "loom", ...
+      if (project.equals("ea")) {
+        var earlyAccessAliases = new ArrayList<String>();
+        components[0] = release; // "23", "24", ...
+        components[1] = "latest";
+        earlyAccessAliases.add(String.join(",", components));
+        components[0] = "ea";
+        if (release.equals(EA_LATEST)) {
+          components[1] = "latest";
+          earlyAccessAliases.add(String.join(",", components));
+        }
+        if (release.equals(EA_STABLE)) {
+          components[1] = "stable";
+          earlyAccessAliases.add(String.join(",", components));
+        }
+        return earlyAccessAliases;
+      }
+      components[0] = project; // "loom", "valhalla", ...
       components[1] = "latest";
-      if (!project.equals("ea")) return List.of(String.join(",", components));
-      components[0] = "ea";
-      components[1] = release.equals(EA_STABLE) ? "stable" : "latest";
-      var aliasWithEarlyAccessMode = String.join(",", components);
-      components[0] = release; // "23", "24", ...
-      components[1] = "latest";
-      var aliasWithReleaseFeatureNumber = String.join(",", components);
-      return List.of(aliasWithReleaseFeatureNumber, aliasWithEarlyAccessMode);
+      return List.of(String.join(",", components));
     } catch (IndexOutOfBoundsException exception) {
       System.err.println("Early-Access version without `-` and `+`: " + version);
       return List.of();
