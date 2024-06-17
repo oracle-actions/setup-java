@@ -7,7 +7,7 @@ This project uses tags and branches for [release management](https://docs.github
 
 ## [Unreleased]
 ### Added
-- Java `23` and `24` to the list of Early-Access releases
+- Java `24` to the list of Early-Access releases
 - New `version: stable` mode for `release: ea` setups
 
 ## [1.3.4] - 2024-03-21
@@ -18,6 +18,8 @@ This project uses tags and branches for [release management](https://docs.github
 - Run action with pre-installed Java 21
 
 ## [1.3.3] - 2024-01-29
+### Added
+- Java `23` to the list of Early-Access releases
 ### Changed
 - Update version of `setup-java` to `v4`
 
