@@ -46,7 +46,7 @@ class ListOpenJavaDevelopmentKits {
   static final String SA = System.getProperty("SA");
 
   /** Early-Access Releases, as comma separated names. */
-  static final String EA = System.getProperty("EA", "24,23,jextract,loom,valhalla");
+  static final String EA = System.getProperty("EA", "24,23,jextract,leyden,loom,valhalla");
 
   /** Current "latest" Early-Access Release number. */
   static final String EA_LATEST = System.getProperty("EA_LATEST", "24");
