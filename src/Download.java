@@ -106,8 +106,8 @@ public class Download {
       var digit = Character.isDigit(jdk.release.charAt(0));
       outputs.put("version", website.computeVersionString(uri, digit ? "PARSE_URI" : "HASH_URI"));
     } catch (Exception exception) {
-      exception.printStackTrace(System.err);
       GitHub.error("Error detected: " + exception);
+      throw new Error(exception); // ensure non-zero result code is returned
     } finally {
       if (dryRun) {
         System.out.println("Dry-run of run with " + List.of(args));
