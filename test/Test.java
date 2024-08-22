@@ -51,6 +51,8 @@ public class Test {
     System.out.println();
     System.out.println("// jdk.java.net - EA - latest");
     checkJavaNetJDK("ea", "latest");
+    System.out.println("// jdk.java.net - EA - stable");
+    checkJavaNetJDK("ea", "stable");
 
     System.out.println();
     System.out.println("// jdk.java.net - Project Valhalla - latest");
