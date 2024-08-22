@@ -144,7 +144,7 @@ class ListOpenJavaDevelopmentKits {
       var from = version.indexOf('-');
       var till = version.indexOf('+');
       var project = from >= 0 && from < till ? version.substring(from + 1, till) : version;
-      if (project.equals("ea")) {
+      if (project.equals("ea") || project.equals(EA_STABLE)) {
         var earlyAccessAliases = new ArrayList<String>();
         components[0] = release; // "23", "24", ...
         components[1] = "latest";
