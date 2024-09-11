@@ -184,6 +184,8 @@ public class Download {
             throw exception;
           }
           GitHub.warn("Retrying archive download due to: " + exception.getMessage());
+          //noinspection BusyWait
+          Thread.sleep(9 * 1000);
         }
       }
     }
