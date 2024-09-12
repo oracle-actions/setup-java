@@ -9,6 +9,7 @@ This project uses tags and branches for [release management](https://docs.github
 ### Added
 - Java `24` and project `leyden` to the list of Early-Access releases
 - New `version: stable` mode for `release: ea` setups
+- Retry of failed JDK archive downloads
 
 ## [1.3.4] - 2024-03-21
 ### Fixed
