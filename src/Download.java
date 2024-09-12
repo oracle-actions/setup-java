@@ -172,8 +172,25 @@ public class Download {
       if (dryRun) {
         return;
       }
-      var response = browser.download(uri, archive);
-      GitHub.debug(response.toString());
+      int retry = 0;
+      while (true) {
+        try {
+          GitHub.debug("Downloading " + uri);
+          var response = browser.download(uri, archive);
+          GitHub.debug(response.toString());
+          return;
+        } catch (IOException exception) {
+          var message = Optional.ofNullable(exception.getMessage()).orElseGet(exception::toString);
+          if (++retry == 3) {
+            GitHub.error("Download failed due to: " + message);
+            throw exception;
+          }
+          var seconds = retry * 10;
+          GitHub.warn(String.format("Retrying in %d seconds due to: %s", seconds, message));
+          //noinspection BusyWait
+          Thread.sleep(seconds * 1000L);
+        }
+      }
     }
 
     void verifyChecksums(String checksum) throws Exception {
