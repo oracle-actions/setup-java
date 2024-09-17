@@ -11,9 +11,9 @@ inputs:
     required: true
     default: 'oracle.com'
   release:
-    description: 'Feature release number or project name, defaults to `22`'
+    description: 'Feature release number or project name, defaults to `23`'
     required: true
-    default: '22'
+    default: '23'
   version:
     description: 'Additional version information, defaults to `latest`'
     required: true
@@ -46,12 +46,14 @@ runs:
       id: download
       shell: bash
       run: |
+        echo "::group::Prepare download..."
         JAVA=$JAVA_HOME_21_X64/bin/java
         if [ ! -d "$JAVA_HOME_21_X64" ]; then
           JAVA=$JAVA_HOME_21_arm64/bin/java
         fi
         $JAVA --version
         DOWNLOAD=$GITHUB_ACTION_PATH/src/Download.java
+        echo "::endgroup::"
         if [ ! -z "${{ inputs.uri }}" ]; then
           $JAVA \
             -Dinstall-as-version="${{ inputs.install-as-version }}" \

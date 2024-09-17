@@ -9,7 +9,7 @@ JDKs built by Oracle are [Oracle JDK](https://www.oracle.com/java/technologies/d
 | Input Name            | Default Value | Description                                                     |
 |-----------------------|--------------:|-----------------------------------------------------------------|
 | `website`             |  `oracle.com` | From where the JDK should be downloaded from.                   |
-| `release`             |          `22` | Java feature release number or name of an Early-Access project. |
+| `release`             |          `23` | Java feature release number or name of an Early-Access project. |
 | `version`             |      `latest` | An explicit version of a Java release.                          |
 | `install`             |        `true` | Install the downloaded JDK archive file.                        |
 | `install-as-version`  |       _empty_ | Control the value passed as `java-version`                      |
@@ -22,7 +22,7 @@ It defaults to `oracle.com`.
 
 Following values are supported:
 
-- [`oracle.com`](https://www.oracle.com/java/technologies/downloads/) for Oracle JDK 17 and later.
+- [`oracle.com`](https://www.oracle.com/java/technologies/downloads/) for Oracle JDK 21 and later.
 
   This action only supports Oracle JDKs provided under the [Oracle No-Fee Terms and Conditions License](https://www.java.com/freeuselicense/).
 
@@ -34,26 +34,25 @@ Following values are supported:
 
 ### Input `release`
 
-The `release` input denotes a Java feature release number (`17`, `18`, ...) or a name of an Early-Access project (`loom`, ...).
-It defaults to the current General-Availability Release for the Java SE platform., which is `22` as of today.
+The `release` input denotes a Java feature release number (`21`, `22`, ...) or a name of an Early-Access project (`loom`, ...).
+It defaults to the current General-Availability Release for the Java SE platform., which is `23` as of today.
 
 Note that websites may offer a different set of available releases.
-For example, `oracle.com` only offers releases of `17` and above; it does not offer any Early-Access releases.
+For example, `oracle.com` only offers releases of `21` and above; it does not offer any Early-Access releases.
 
 Note also that websites may stop offering any release at any time.
 Please consult the website for details which release is offered for how long.
 
 ### Input `version`
 
-The `version` input can be used to specify an explicit version of a Java release, ex. `17.0.1`.
+The `version` input can be used to specify an explicit version of a Java release, ex. `21.0.4`.
 It is set by default to `latest`.
 
 ___
 
-**WARNING!**
-
-Older versions of the JDK are provided to help developers debug issues in older systems.
-**They are not updated with the latest security patches and are not recommended for use in production.**
+> [!CAUTION]
+> Older versions of the JDK are provided to help developers debug issues in older systems.
+> **They are not updated with the latest security patches and are not recommended for use in production.**
 
 ___
 
@@ -70,7 +69,7 @@ Pass `false` to skip the automatic JDK installation and invoke `actions/setup-ja
 The `install-as-version` input allows overriding the value passed as `java-version` to the underlying `actions/setup-java` action.
 
 Supported values of `install-as-version` include:
-- `PARSE_URI` parses the computed or given URI for a valid Java version string, ex. `17.0.1`.
+- `PARSE_URI` parses the computed or given URI for a valid Java version string, ex. `21.0.4`.
 - `HASH_URI` returns the `hashCode()` of the computed or given URI as a string, ex. `12345`.
 - All strings [supported by `actions/setup-java`](https://github.com/actions/setup-java#supported-version-syntax)
 
@@ -91,30 +90,29 @@ The following examples use the [JDK Script Friendly URLs](https://www.oracle.com
 
 ```yaml
 steps:
-  - name: 'Set up latest Oracle JDK 22'
+  - name: 'Set up latest Oracle JDK 23'
     uses: oracle-actions/setup-java@v1
     with:
       website: oracle.com
-      release: 22
+      release: 23
 ```
 
 ### Download and install a specific version of Oracle JDK
 
 ```yaml
 steps:
-  - name: 'Set up archived Oracle JDK 17.0.10'
+  - name: 'Set up archived Oracle JDK 21.0.4'
     uses: oracle-actions/setup-java@v1
     with:
       website: oracle.com
-      release: 17
-      version: 17.0.10
+      release: 21
+      version: 21.0.4
 ```
 ___
 
-**WARNING!**
-
-Older versions of the JDK are provided to help developers debug issues in older systems.
-**They are not updated with the latest security patches and are not recommended for use in production.**
+> [!CAUTION]
+> Older versions of the JDK are provided to help developers debug issues in older systems.
+> **They are not updated with the latest security patches and are not recommended for use in production.**
 
 ___
 
@@ -130,8 +128,13 @@ steps:
     uses: oracle-actions/setup-java@v1
     with:
       website: jdk.java.net
-      release: N # Replace N with GA, EA, 17, 18, 19, ...
+      release: N # Replace N with GA, EA, 21, 22, 23, ...
 ```
+
+> [!NOTE]
+> This action supports two `version` symbolic modes for `release: EA` on `jdk.java.net`:
+>   - `version: latest` updates as early as possible to the latest-and-greatest JDK build (default)
+>   - `version: stable` updates later in the release cycle, usually when an early-access JDK build went GA
 
 ### Download and install an Early-Access build of a named OpenJDK project
 
