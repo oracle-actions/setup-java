@@ -8,6 +8,10 @@ This project uses tags and branches for [release management](https://docs.github
 ## [Unreleased]
 _nothing noteworthy yet_
 
+## [1.4.1] - 2025-03-19
+### Changed
+- Default value of `release` input to Java `23`
+
 ## [1.4.0] - 2024-03-21
 ### Added
 - Java `24` and project `leyden` to the list of Early-Access releases
@@ -71,7 +75,8 @@ _nothing noteworthy yet_
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/oracle-actions/setup-java/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/oracle-actions/setup-java/compare/v1.4.1...HEAD
+[1.4.1]: https://github.com/oracle-actions/setup-java/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/oracle-actions/setup-java/compare/v1.3.4...v1.4.0
 [1.3.4]: https://github.com/oracle-actions/setup-java/compare/v1.3.3...v1.3.4
 [1.3.3]: https://github.com/oracle-actions/setup-java/compare/v1.3.2...v1.3.3
