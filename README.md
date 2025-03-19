@@ -8,8 +8,8 @@ JDKs built by Oracle are [Oracle JDK](https://www.oracle.com/java/technologies/d
 
 | Input Name            | Default Value | Description                                                     |
 |-----------------------|--------------:|-----------------------------------------------------------------|
-| `website`             |  `oracle.com` | From where the JDK should be downloaded from.                   |
-| `release`             |          `23` | Java feature release number or name of an Early-Access project. |
+| `website`             |  `oracle.com` | From where the JDK should be downloaded.                        |
+| `release`             |          `24` | Java feature release number or name of an Early-Access project. |
 | `version`             |      `latest` | An explicit version of a Java release.                          |
 | `install`             |        `true` | Install the downloaded JDK archive file.                        |
 | `install-as-version`  |       _empty_ | Control the value passed as `java-version`                      |
@@ -17,16 +17,16 @@ JDKs built by Oracle are [Oracle JDK](https://www.oracle.com/java/technologies/d
 
 ### Input `website`
 
-The `website` input specifies from where the JDK should be downloaded from.
+The `website` input specifies from where the JDK should be downloaded.
 It defaults to `oracle.com`.
 
-Following values are supported:
+The following values are supported:
 
 - [`oracle.com`](https://www.oracle.com/java/technologies/downloads/) for Oracle JDK 21 and later.
 
   This action only supports Oracle JDKs provided under the [Oracle No-Fee Terms and Conditions License](https://www.java.com/freeuselicense/).
 
-- [`jdk.java.net`](https://jdk.java.net) for the current OpenJDK General Availability build and for OpenJDK Early-Access builds.
+- [`jdk.java.net`](https://jdk.java.net) for the current OpenJDK General Availability and Early-Access builds.
 
   Early-Access builds include the [mainline](https://github.com/openjdk/jdk/tags) JDK, Generational ZGC, Project Loom and jextract, Panama, Valhalla, etc.
 
@@ -35,17 +35,17 @@ Following values are supported:
 ### Input `release`
 
 The `release` input denotes a Java feature release number (`21`, `22`, ...) or a name of an Early-Access project (`loom`, ...).
-It defaults to the current General-Availability Release for the Java SE platform., which is `23` as of today.
+It defaults to the current General-Availability Release for the Java SE platform., which is `24` as of today.
 
 Note that websites may offer a different set of available releases.
-For example, `oracle.com` only offers releases of `21` and above; it does not offer any Early-Access releases.
+For example, `oracle.com` only offers releases of `21` and above; it does not offer Early-Access releases.
 
 Note also that websites may stop offering any release at any time.
-Please consult the website for details which release is offered for how long.
+Please consult the website for details on which release is offered for how long.
 
 ### Input `version`
 
-The `version` input can be used to specify an explicit version of a Java release, ex. `21.0.4`.
+The `version` input can be used to specify an explicit version of a Java release, such as `21.0.4`.
 It is set by default to `latest`.
 
 ___
@@ -61,7 +61,7 @@ ___
 The `install` input enables or disables the automatic JDK installation of the downloaded JDK archive file.
 It is enabled by default by using `true` as its value.
 
-This action delegates to [`actions/setup-java`](https://github.com/actions/setup-java) in order to install the downloaded JDK archive file using default
+This action delegates to [`actions/setup-java`](https://github.com/actions/setup-java) to install the downloaded JDK archive file using default settings.
 Pass `false` to skip the automatic JDK installation and invoke `actions/setup-java` with your custom settings.
 
 ### Input `install-as-version`
@@ -90,11 +90,11 @@ The following examples use the [JDK Script Friendly URLs](https://www.oracle.com
 
 ```yaml
 steps:
-  - name: 'Set up latest Oracle JDK 23'
+  - name: 'Set up latest Oracle JDK 24'
     uses: oracle-actions/setup-java@v1
     with:
       website: oracle.com
-      release: 23
+      release: 24
 ```
 
 ### Download and install a specific version of Oracle JDK
@@ -149,7 +149,7 @@ steps:
 
 ## Supported GitHub Actions Virtual Environments
 
-All [environments](https://github.com/actions/virtual-environments#available-environments) that have Java 21 pre-installed are supported.
+All [environments](https://github.com/actions/virtual-environments#available-environments) with Java 21 pre-installed are supported.
 These include the following labels: `ubuntu-latest`, `macos-latest`, and `windows-latest`.
 
 ## More information

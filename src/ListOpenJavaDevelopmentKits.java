@@ -40,19 +40,19 @@ import java.util.stream.Collectors;
 class ListOpenJavaDevelopmentKits {
 
   /** Current General-Availability release number. */
-  static final String GA = System.getProperty("GA", "23");
+  static final String GA = System.getProperty("GA", "24");
 
   /** Current Soon-Archived release number. */
-  static final String SA = System.getProperty("SA");
+  static final String SA = System.getProperty("SA", "23");
 
   /** Early-Access Releases, as comma separated names. */
-  static final String EA = System.getProperty("EA", "24,jextract,leyden,loom,valhalla");
+  static final String EA = System.getProperty("EA", "25,jextract,leyden,loom,valhalla");
 
   /** Current "latest" Early-Access Release number. */
-  static final String EA_LATEST = System.getProperty("EA_LATEST", "24");
+  static final String EA_LATEST = System.getProperty("EA_LATEST", "25");
 
   /** Current "stable" Early-Access Release number. */
-  static final String EA_STABLE = System.getProperty("EA_STABLE", "24");
+  static final String EA_STABLE = System.getProperty("EA_STABLE", "25");
 
   /** Include archived releases flag. */
   static final boolean ARCHIVES = Boolean.getBoolean("ARCHIVES");
