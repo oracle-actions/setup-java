@@ -30,7 +30,6 @@ public class Test {
     System.out.println();
     System.out.println("// oracle.com - latest");
     checkOracleJDK("24", "latest");
-    checkOracleJDK("23", "latest");
     checkOracleJDK("21", "latest");
 
     System.out.println();
