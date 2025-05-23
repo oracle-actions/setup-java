@@ -63,15 +63,15 @@ runs:
         if [ ! -z "$URI" ]; then
           $JAVA \
             -Dinstall-as-version="$INSTALL_AS_VERSION" \
-            $DOWNLOAD \
-            $URI
+            "$DOWNLOAD" \
+            "$URI"
         else
           $JAVA \
             -Dinstall-as-version="$INSTALL_AS_VERSION" \
-            $DOWNLOAD \
-            $WEBSITE \
-            $RELEASE \
-            $VERSION
+            "$DOWNLOAD" \
+            "$WEBSITE" \
+            "$RELEASE" \
+            "$VERSION"
         fi
     - name: 'Install Java Development Kit'
       if: ${{ inputs.install  == 'true' }}
