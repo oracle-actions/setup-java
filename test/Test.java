@@ -79,6 +79,7 @@ public class Test {
       var head = BROWSER.head(uri);
       if (head.statusCode() < 200 || head.statusCode() >= 400) ERRORS.add(head.toString());
       System.out.println(head);
+      System.out.println("      " + BROWSER.browse(uri + ".sha256"));
     } catch (Exception exception) {
       ERRORS.add(jdk + "\n" + exception);
     }
