@@ -45,6 +45,12 @@ runs:
     - name: 'Download Java Development Kit'
       id: download
       shell: bash
+      env:
+        WEBSITE: "${{ inputs.website }}"
+        RELEASE: "${{ inputs.release }}"
+        VERSION: "${{ inputs.version }}"
+        INSTALL_AS_VERSION: "${{ inputs.install-as-version }}"
+        URI: "${{ inputs.uri }}"
       run: |
         echo "::group::Prepare download..."
         JAVA=$JAVA_HOME_21_X64/bin/java
@@ -54,18 +60,18 @@ runs:
         $JAVA --version
         DOWNLOAD=$GITHUB_ACTION_PATH/src/Download.java
         echo "::endgroup::"
-        if [ ! -z "${{ inputs.uri }}" ]; then
+        if [ ! -z "$URI" ]; then
           $JAVA \
-            -Dinstall-as-version="${{ inputs.install-as-version }}" \
-            $DOWNLOAD \
-            ${{ inputs.uri }}
+            -Dinstall-as-version="$INSTALL_AS_VERSION" \
+            "$DOWNLOAD" \
+            "$URI"
         else
           $JAVA \
-            -Dinstall-as-version="${{ inputs.install-as-version }}" \
-            $DOWNLOAD \
-            ${{ inputs.website }} \
-            ${{ inputs.release }} \
-            ${{ inputs.version }}
+            -Dinstall-as-version="$INSTALL_AS_VERSION" \
+            "$DOWNLOAD" \
+            "$WEBSITE" \
+            "$RELEASE" \
+            "$VERSION"
         fi
     - name: 'Install Java Development Kit'
       if: ${{ inputs.install  == 'true' }}

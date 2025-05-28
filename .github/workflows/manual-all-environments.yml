@@ -9,7 +9,7 @@ jobs:
       max-parallel: 3
       matrix:
         # https://docs.github.com/en/actions/using-jobs/choosing-the-runner-for-a-job#choosing-github-hosted-runners
-        os: [ ubuntu-latest, ubuntu-20.04, macos-latest, macos-14, macos-13, macos-11, windows-latest, windows-2019 ]
+        os: [ ubuntu-latest, ubuntu-24.04, macos-latest, macos-15, macos-14, macos-13, windows-latest, windows-2025, windows-2022, windows-2019 ]
     runs-on: ${{ matrix.os }}
     steps:
       - name: 'Check out repository'

@@ -201,12 +201,13 @@ public class Download {
       var remoteChecksum = findRemoteChecksum(checksum);
       if (remoteChecksum.isEmpty()) {
         GitHub.warn("Checksum not available for: " + uri);
-        return;
+      } else {
+        var remote = remoteChecksum.get();
+        GitHub.debug("Remote checksum: " + remote);
+        if (cached.equals(remote)) {
+          return;
+        }
       }
-
-      var remote = remoteChecksum.get();
-      GitHub.debug("Remote checksum: " + remote);
-      if (cached.equals(remote)) return;
       var message = "Checksum verification failed, deleting cached archive";
       Files.delete(archive);
       GitHub.error(message);

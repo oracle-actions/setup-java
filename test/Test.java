@@ -30,7 +30,6 @@ public class Test {
     System.out.println();
     System.out.println("// oracle.com - latest");
     checkOracleJDK("24", "latest");
-    checkOracleJDK("23", "latest");
     checkOracleJDK("21", "latest");
 
     System.out.println();
@@ -80,6 +79,7 @@ public class Test {
       var head = BROWSER.head(uri);
       if (head.statusCode() < 200 || head.statusCode() >= 400) ERRORS.add(head.toString());
       System.out.println(head);
+      System.out.println("      " + BROWSER.browse(uri + ".sha256"));
     } catch (Exception exception) {
       ERRORS.add(jdk + "\n" + exception);
     }
