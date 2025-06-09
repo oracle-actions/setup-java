@@ -43,13 +43,13 @@ class ListOpenJavaDevelopmentKits {
   static final String GA = System.getProperty("GA", "24");
 
   /** Current Soon-Archived release number. */
-  static final String SA = System.getProperty("SA", "23");
+  static final String SA = System.getProperty("SA", "");
 
   /** Early-Access Releases, as comma separated names. */
-  static final String EA = System.getProperty("EA", "25,jextract,leyden,loom,valhalla");
+  static final String EA = System.getProperty("EA", "26,25,jextract,leyden,loom,valhalla");
 
   /** Current "latest" Early-Access Release number. */
-  static final String EA_LATEST = System.getProperty("EA_LATEST", "25");
+  static final String EA_LATEST = System.getProperty("EA_LATEST", "26");
 
   /** Current "stable" Early-Access Release number. */
   static final String EA_STABLE = System.getProperty("EA_STABLE", "25");
