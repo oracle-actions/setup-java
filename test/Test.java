@@ -80,7 +80,13 @@ public class Test {
       var head = BROWSER.head(uri);
       if (head.statusCode() < 200 || head.statusCode() >= 400) ERRORS.add(head.toString());
       System.out.println(head);
-      System.out.println("      " + BROWSER.browse(uri + ".sha256"));
+      var sha = BROWSER.head(uri + ".sha256");
+      System.out.println(sha);
+      if (sha.statusCode() >= 200 && sha.statusCode() < 400) {
+          System.out.println("  --> " + BROWSER.browse(uri + ".sha256"));
+      } else {
+          System.out.println("  --> <?>");
+      }
     } catch (Exception exception) {
       ERRORS.add(jdk + "\n" + exception);
     }
