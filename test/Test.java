@@ -75,7 +75,9 @@ public class Test {
   }
 
   static void checkJDK(String website, Download.JDK jdk) {
-    var uri = Download.Website.find(website).orElseThrow().findUri(jdk).orElseThrow();
+    System.out.println(website + " << " + jdk);
+    var finder = Download.Website.find(website).orElseThrow();
+    var uri = finder.findUri(jdk).orElseThrow();
     try {
       var head = BROWSER.head(uri);
       if (head.statusCode() < 200 || head.statusCode() >= 400) ERRORS.add(head.toString());
