@@ -466,7 +466,9 @@ public class Download {
         }
       }
       var value = URI_MAPPING.getProperty(key);
-      GitHub.debug("No URI mapped for " + key);
+      if (value == null) {
+          GitHub.warn("No URI mapped for key: " + key);
+      }
       return Optional.ofNullable(value);
     }
   }
