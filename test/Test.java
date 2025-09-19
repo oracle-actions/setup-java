@@ -29,11 +29,12 @@ public class Test {
   static void checkAllOracleJDKs() {
     System.out.println();
     System.out.println("// oracle.com - latest");
-    checkOracleJDK("24", "latest");
+    checkOracleJDK("25", "latest");
     checkOracleJDK("21", "latest");
 
     System.out.println();
     System.out.println("// oracle.com - archive");
+    Stream.of("24", "24.0.1").forEach(version -> checkOracleJDK("24", version));
     Stream.of("23", "23.0.1").forEach(version -> checkOracleJDK("23", version));
     Stream.of("22", "22.0.1", "22.0.2").forEach(version -> checkOracleJDK("22", version));
     Stream.of("21", "21.0.1", "21.0.2", "21.0.4").forEach(version -> checkOracleJDK("21", version));
@@ -74,12 +75,20 @@ public class Test {
   }
 
   static void checkJDK(String website, Download.JDK jdk) {
-    var uri = Download.Website.find(website).orElseThrow().findUri(jdk).orElseThrow();
+    System.out.println(website + " << " + jdk);
+    var finder = Download.Website.find(website).orElseThrow();
+    var uri = finder.findUri(jdk).orElseThrow();
     try {
       var head = BROWSER.head(uri);
       if (head.statusCode() < 200 || head.statusCode() >= 400) ERRORS.add(head.toString());
       System.out.println(head);
-      System.out.println("      " + BROWSER.browse(uri + ".sha256"));
+      var sha = BROWSER.head(uri + ".sha256");
+      System.out.println(sha);
+      if (sha.statusCode() >= 200 && sha.statusCode() < 400) {
+          System.out.println("  --> " + BROWSER.browse(uri + ".sha256"));
+      } else {
+          System.out.println("  --> <?>");
+      }
     } catch (Exception exception) {
       ERRORS.add(jdk + "\n" + exception);
     }

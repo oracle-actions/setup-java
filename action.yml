@@ -11,9 +11,9 @@ inputs:
     required: true
     default: 'oracle.com'
   release:
-    description: 'Feature release number or project name, defaults to `24`'
+    description: 'Feature release number or project name, defaults to `25`'
     required: true
-    default: '24'
+    default: '25'
   version:
     description: 'Additional version information, defaults to `latest`'
     required: true
@@ -75,7 +75,7 @@ runs:
         fi
     - name: 'Install Java Development Kit'
       if: ${{ inputs.install  == 'true' }}
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
       with:
         java-version: ${{ steps.download.outputs.version }}
         distribution: jdkfile

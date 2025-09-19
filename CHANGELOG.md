@@ -8,9 +8,17 @@ This project uses tags and branches for [release management](https://docs.github
 ## [Unreleased]
 _nothing noteworthy yet_
 
+## [1.5.0] - 2025-09-19
+### Changed
+- Default value of `release` input to Java `25`
+- Use SHA-pinned versions of other actions
+
+## [1.4.2] - 2025-05-23
+- Various improvements
+
 ## [1.4.1] - 2025-03-19
 ### Changed
-- Default value of `release` input to Java `23`
+- Default value of `release` input to Java `24`
 
 ## [1.4.0] - 2024-03-21
 ### Added
@@ -75,7 +83,9 @@ _nothing noteworthy yet_
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/oracle-actions/setup-java/compare/v1.4.1...HEAD
+[Unreleased]: https://github.com/oracle-actions/setup-java/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/oracle-actions/setup-java/compare/v1.4.2...v1.5.0
+[1.4.2]: https://github.com/oracle-actions/setup-java/compare/v1.4.1...v1.4.2
 [1.4.1]: https://github.com/oracle-actions/setup-java/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/oracle-actions/setup-java/compare/v1.3.4...v1.4.0
 [1.3.4]: https://github.com/oracle-actions/setup-java/compare/v1.3.3...v1.3.4
