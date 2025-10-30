@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2022, 2025, Oracle and/or its affiliates.
  *
  * This source code is licensed under the UPL license found in the
  * LICENSE.txt file in the root directory of this source tree.
@@ -9,13 +9,11 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
+import java.util.Map;
 import java.util.TreeMap;
-import java.util.function.Function;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * List Java Development Kit builds hosted at: {@code https://jdk.java.net}.
@@ -38,30 +36,33 @@ import java.util.stream.Collectors;
  * </ul>
  */
 class ListOpenJavaDevelopmentKits {
+  /** List of pages to visit and parse for JDK archives. */
+  static final List<Page> PAGES =
+      List.of(
+          // JDK: General-Availability Release
+          Page.of("25") // https://jdk.java.net/25
+              .withAlias("25,latest")
+              .withAlias("ga,latest"),
+          // JDK: Early-Access Releases
+          Page.of("26") // https://jdk.java.net/26
+              .withAlias("26,latest")
+              .withAlias("ea,latest")
+              .withAlias("ea,stable"),
+          // Named projects, usually in EA phase
+          Page.of("jextract") // https://jdk.java.net/jextract
+              .withAlias("jextract,latest")
+              .withAlias("jextract,ea"),
+          Page.of("loom") // https://jdk.java.net/loom
+              .withAlias("loom,latest")
+              .withAlias("loom,ea"),
+          Page.of("leyden") // https://jdk.java.net/leyden
+              .withAlias("leyden,latest")
+              .withAlias("leyden,ea"),
+          Page.of("valhalla") // https://jdk.java.net/valhalla
+              .withAlias("valhalla,latest")
+              .withAlias("valhalla,ea"));
 
-  /** Current General-Availability release number. */
-  static final String GA = System.getProperty("GA", "25");
-
-  /** Current Soon-Archived release number. */
-  static final String SA = System.getProperty("SA", "");
-
-  /** Early-Access Releases, as comma separated names. */
-  static final String EA = System.getProperty("EA", "26,jextract,leyden,loom,valhalla");
-
-  /** Current "latest" Early-Access Release number. */
-  static final String EA_LATEST = System.getProperty("EA_LATEST", "26");
-
-  /** Current "stable" Early-Access Release number. */
-  static final String EA_STABLE = System.getProperty("EA_STABLE", "26");
-
-  /** Include archived releases flag. */
-  static final boolean ARCHIVES = Boolean.getBoolean("ARCHIVES");
-
-  /** Shared HTTP client instance. */
-  static final HttpClient HTTP_CLIENT =
-      HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build();
-
-  /** Regex-based pattern used to find a download URI in a HTML code line. */
+  /** Regex-based pattern used to find a download URI in an HTML code line. */
   static final Pattern URI_PATTERN =
       Pattern.compile(
           ".+?href=\""
@@ -72,135 +73,57 @@ class ListOpenJavaDevelopmentKits {
   static final Pattern KEY_PATTERN =
       Pattern.compile(".+?openjdk-(?<version>.+?)_(?<os>.+?)-(?<arch>.+?)_bin\\.(?<type>.+?)");
 
-  /** Main entry-point. */
   public static void main(String... args) {
-    if (args.length == 0) {
-      listGeneralAvailabilityRelease();
-      listSoonArchivedRelease();
-      listEarlyAccessReleases();
-      if (ARCHIVES) listArchivedReleases();
-    } else {
-      for (var name : args) {
-        var page = "https://jdk.java.net/" + name.toLowerCase() + "/";
-        var html = browse(page);
-        print(page, parse(html));
+    var pages = args.length == 1 ? List.of(Page.of(args[0])) : PAGES;
+    var parser = new Parser();
+    for (var page : pages) {
+      var section = parser.parse(page);
+      System.out.println("#");
+      System.out.println("# " + page.address());
+      System.out.println("#");
+      section.map().forEach((key, uri) -> System.out.printf("%s=%s%n", key, uri));
+    }
+  }
+
+  record Page(String name, List<String> aliases) {
+    static Page of(String name) {
+      return new Page(name, List.of());
+    }
+
+    Page withAlias(String alias) {
+
+      return new Page(name, Stream.concat(aliases.stream(), Stream.of(alias)).toList());
+    }
+
+    String address() {
+      return "https://jdk.java.net/" + name.toLowerCase() + "/";
+    }
+  }
+
+  record Section(Page page, Map<String, String> map) {}
+
+  record Parser(HttpClient http) {
+    Parser() {
+      this(HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build());
+    }
+
+    String browse(String uri) {
+      try {
+        var request = HttpRequest.newBuilder(URI.create(uri)).build();
+        return http.send(request, HttpResponse.BodyHandlers.ofString()).body();
+      } catch (Exception exception) {
+        return exception.toString();
       }
     }
-  }
 
-  static void listGeneralAvailabilityRelease() {
-    var html = browse("https://jdk.java.net/" + GA + "/");
-    var directs = parse(html);
-    print("General-Availability Release", directs);
-
-    var aliases = alias(directs, ListOpenJavaDevelopmentKits::generateGeneralAvailabilityAliasKeys);
-    print("General-Availability Release (Alias)", aliases);
-  }
-
-  static List<String> generateGeneralAvailabilityAliasKeys(String[] components) {
-    components[1] = "latest";
-    var alias1 = String.join(",", components);
-    components[0] = "ga";
-    var alias2 = String.join(",", components);
-    return List.of(alias1, alias2);
-  }
-
-  static void listSoonArchivedRelease() {
-    if (SA == null || SA.isBlank()) return;
-    var html = browse("https://jdk.java.net/" + SA + "/");
-    var directs = parse(html);
-    print("Soon-Archived Release", directs);
-
-    var aliases = alias(directs, ListOpenJavaDevelopmentKits::generateSoonArchivedAliasKeys);
-    print("Soon-Archived Release (Alias)", aliases);
-  }
-
-  static List<String> generateSoonArchivedAliasKeys(String[] components) {
-    components[1] = "latest";
-    var alias1 = String.join(",", components);
-    return List.of(alias1);
-  }
-
-  static void listEarlyAccessReleases() {
-    var names = List.of(EA.split(","));
-    if (names.isEmpty()) return;
-    var html =
-        names.stream()
-            .map(String::toLowerCase)
-            .map(name -> browse("https://jdk.java.net/" + name + "/"))
-            .collect(Collectors.joining());
-    var directs = parse(html);
-    print("Early-Access Releases", directs);
-
-    var aliases = alias(directs, ListOpenJavaDevelopmentKits::generateEarlyAccessAliasKeys);
-    print("Early-Access Releases (Alias)", aliases);
-  }
-
-  static List<String> generateEarlyAccessAliasKeys(String[] components) {
-    var release = components[0];
-    var version = components[1];
-    try {
-      // extract named project or take version as-is
-      var from = version.indexOf('-');
-      var till = version.indexOf('+');
-      var project = from >= 0 && from < till ? version.substring(from + 1, till) : version;
-      if (project.equals("ea") || project.equals(EA_STABLE)) {
-        var earlyAccessAliases = new ArrayList<String>();
-        components[0] = release; // "23", "24", ...
-        components[1] = "latest";
-        earlyAccessAliases.add(String.join(",", components));
-        components[0] = "ea";
-        if (release.equals(EA_LATEST)) {
-          components[1] = "latest";
-          earlyAccessAliases.add(String.join(",", components));
+    Section parse(Page page) {
+      var map = new TreeMap<String, String>();
+      var html = browse(page.address());
+      for (var line : html.lines().toList()) {
+        var uriMatcher = URI_PATTERN.matcher(line);
+        if (!uriMatcher.matches()) {
+          continue;
         }
-        if (release.equals(EA_STABLE)) {
-          components[1] = "stable";
-          earlyAccessAliases.add(String.join(",", components));
-        }
-        return earlyAccessAliases;
-      }
-      components[0] = project; // "loom", "valhalla", ...
-      components[1] = "latest";
-      return List.of(String.join(",", components));
-    } catch (IndexOutOfBoundsException exception) {
-      System.err.println("Early-Access version without `-` and `+`: " + version);
-      return List.of();
-    }
-  }
-
-  static void listArchivedReleases() {
-    var html = browse("https://jdk.java.net/archive/");
-    var directs = parse(html);
-    print("Archived Releases", directs);
-
-    var aliases = alias(directs, ListOpenJavaDevelopmentKits::generateArchivedAliasKeys);
-    print("Archived Releases (Alias)", aliases);
-  }
-
-  static List<String> generateArchivedAliasKeys(String[] components) {
-    if (components[0].equals(GA)) return List.of(); // "latest" is covered by GA
-    if (components[0].equals(SA)) return List.of(); // "latest" is covered by SA
-    components[1] = "latest";
-    var alias = String.join(",", components);
-    return List.of(alias);
-  }
-
-  static String browse(String uri) {
-    try {
-      var request = HttpRequest.newBuilder(URI.create(uri)).build();
-      return HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.ofString()).body();
-    } catch (Exception exception) {
-      return exception.toString();
-    }
-  }
-
-  static TreeMap<String, String> parse(String html) {
-    var map = new TreeMap<String, String>();
-
-    for (var line : html.lines().toList()) {
-      var uriMatcher = URI_PATTERN.matcher(line);
-      if (uriMatcher.matches()) {
         var uri = uriMatcher.group(1);
         var keyMatcher = KEY_PATTERN.matcher(uri);
         if (!keyMatcher.matches()) {
@@ -209,35 +132,14 @@ class ListOpenJavaDevelopmentKits {
         }
         var version = Runtime.Version.parse(keyMatcher.group("version"));
         var os = keyMatcher.group("os");
-        var joiner =
-            new StringJoiner(",")
-                .add(Integer.toString(version.feature()))
-                .add(version.toString())
-                .add(os.equals("osx") ? "macos" : os)
-                .add(keyMatcher.group("arch"));
-        var key = joiner.toString();
-        map.put(key, uri);
+        var arch = keyMatcher.group("arch");
+        var platform = os.equals("osx") ? "macos" : os + "," + arch;
+        map.put(version.feature() + "," + version + "," + platform, uri);
+        for (var alias : page.aliases()) {
+          map.put(alias + "," + platform, uri);
+        }
       }
+      return new Section(page, map);
     }
-    return map;
-  }
-
-  static TreeMap<String, String> alias(
-      TreeMap<String, String> map, Function<String[], List<String>> generator) {
-    var alternates = new TreeMap<String, String>();
-    for (var ga : map.entrySet()) {
-      var key = ga.getKey();
-      var uri = ga.getValue();
-      var elements = key.split(",");
-      generator.apply(elements).forEach(alias -> alternates.put(alias, uri));
-    }
-    return alternates;
-  }
-
-  static void print(String title, TreeMap<String, String> map) {
-    System.out.println("#");
-    System.out.println("# " + title);
-    System.out.println("#");
-    map.forEach((key, uri) -> System.out.printf("%s=%s%n", key, uri));
   }
 }
