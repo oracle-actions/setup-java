@@ -1,8 +1,0 @@
-on:
-  workflow_dispatch:
-
-jobs:
-  latest-17:
-    uses: ./.github/workflows/manual-oracle.com-17-latest.yml
-  archive-17:
-    uses: ./.github/workflows/manual-oracle.com-17-archive.yml
