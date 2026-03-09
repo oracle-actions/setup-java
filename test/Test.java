@@ -29,6 +29,7 @@ public class Test {
   static void checkAllOracleJDKs() {
     System.out.println();
     System.out.println("// oracle.com - latest");
+    checkOracleJDK("26", "latest");
     checkOracleJDK("25", "latest");
     checkOracleJDK("21", "latest");
 
@@ -55,6 +56,18 @@ public class Test {
     checkJavaNetJDK("ea", "latest");
     System.out.println("// jdk.java.net - EA - stable");
     checkJavaNetJDK("ea", "stable");
+
+    System.out.println();
+    System.out.println("// jdk.java.net - Project JExtract - latest");
+    checkJavaNetJDK("jextract", "latest");
+
+    System.out.println();
+    System.out.println("// jdk.java.net - Project Leyden - latest");
+    checkJavaNetJDK("leyden", "latest");
+
+    System.out.println();
+    System.out.println("// jdk.java.net - Project Loom - latest");
+    checkJavaNetJDK("loom", "latest");
 
     System.out.println();
     System.out.println("// jdk.java.net - Project Valhalla - latest");

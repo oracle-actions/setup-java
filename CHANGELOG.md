@@ -7,8 +7,7 @@ This project uses tags and branches for [release management](https://docs.github
 
 ## [Unreleased]
 ### Changed
-- Update version of `actions/checkout` to `v6.0.1`
-- Update version of `actions/setup-java` to `v5.2.0`
+- Default value of `release` input to Java `26`
 
 ## [1.5.0] - 2025-09-19
 ### Changed
