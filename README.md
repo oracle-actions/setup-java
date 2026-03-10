@@ -9,7 +9,7 @@ JDKs built by Oracle are [Oracle JDK](https://www.oracle.com/java/technologies/d
 | Input Name            | Default Value | Description                                                     |
 |-----------------------|--------------:|-----------------------------------------------------------------|
 | `website`             |  `oracle.com` | From where the JDK should be downloaded.                        |
-| `release`             |          `25` | Java feature release number or name of an Early-Access project. |
+| `release`             |          `26` | Java feature release number or name of an Early-Access project. |
 | `version`             |      `latest` | An explicit version of a Java release.                          |
 | `install`             |        `true` | Install the downloaded JDK archive file.                        |
 | `install-as-version`  |       _empty_ | Control the value passed as `java-version`                      |
@@ -90,23 +90,22 @@ The following examples use the [JDK Script Friendly URLs](https://www.oracle.com
 
 ```yaml
 steps:
-  - name: 'Set up latest Oracle JDK 25'
+  - name: 'Set up latest Oracle JDK'
     uses: oracle-actions/setup-java@v1
     with:
       website: oracle.com
-      release: 25
 ```
 
 ### Download and install a specific version of Oracle JDK
 
 ```yaml
 steps:
-  - name: 'Set up archived Oracle JDK 21.0.4'
+  - name: 'Set up archived Oracle JDK 25.0.2'
     uses: oracle-actions/setup-java@v1
     with:
       website: oracle.com
-      release: 21
-      version: 21.0.4
+      release: 25
+      version: 25.0.2
 ```
 ___
 

@@ -57,7 +57,7 @@ public class Test {
     checkJavaNetJDK("ea", "stable");
 
     System.out.println();
-    System.out.println("// jdk.java.net - Project JExtract - latest");
+    System.out.println("// jdk.java.net - Project Jextract - latest");
     checkJavaNetJDK("jextract", "latest");
 
     System.out.println();
