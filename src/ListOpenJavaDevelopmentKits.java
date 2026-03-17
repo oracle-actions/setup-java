@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2022, 2026, Oracle and/or its affiliates.
  *
  * This source code is licensed under the UPL license found in the
  * LICENSE.txt file in the root directory of this source tree.
@@ -40,26 +40,24 @@ class ListOpenJavaDevelopmentKits {
   static final List<Page> PAGES =
       List.of(
           // JDK: General-Availability Release
-          Page.of("25") // https://jdk.java.net/25
-              .withAlias("25,latest")
-              .withAlias("ga,latest"),
-          // JDK: Early-Access Releases
           Page.of("26") // https://jdk.java.net/26
               .withAlias("26,latest")
-              .withAlias("ea,stable"),
+              .withAlias("ga,latest"),
+          // JDK: Early-Access Releases
           Page.of("27") // https://jdk.java.net/27
               .withAlias("27,latest")
-              .withAlias("ea,latest"),
+              .withAlias("ea,latest")
+              .withAlias("ea,stable"),
           // Named projects, usually in EA phase
           Page.of("jextract") // https://jdk.java.net/jextract
               .withAlias("jextract,latest")
               .withAlias("jextract,ea"),
+          Page.of("leyden") // https://jdk.java.net/leyden
+              .withAlias("leyden,latest")
+             .withAlias("leyden,ea"),
           Page.of("loom") // https://jdk.java.net/loom
               .withAlias("loom,latest")
               .withAlias("loom,ea"),
-          Page.of("leyden") // https://jdk.java.net/leyden
-              .withAlias("leyden,latest")
-              .withAlias("leyden,ea"),
           Page.of("valhalla") // https://jdk.java.net/valhalla
               .withAlias("valhalla,latest")
               .withAlias("valhalla,ea"));

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2022, 2026, Oracle and/or its affiliates.
  *
  * This source code is licensed under the UPL license found in the
  * LICENSE.txt file in the root directory of this source tree.
@@ -29,19 +29,19 @@ public class Test {
   static void checkAllOracleJDKs() {
     System.out.println();
     System.out.println("// oracle.com - latest");
+    checkOracleJDK("26", "latest");
     checkOracleJDK("25", "latest");
     checkOracleJDK("21", "latest");
 
     System.out.println();
     System.out.println("// oracle.com - archive");
-    Stream.of("25", "25.0.1").forEach(version -> checkOracleJDK("25", version));
-    Stream.of("24", "24.0.1").forEach(version -> checkOracleJDK("24", version));
-    Stream.of("23", "23.0.1").forEach(version -> checkOracleJDK("23", version));
-    Stream.of("22", "22.0.1", "22.0.2").forEach(version -> checkOracleJDK("22", version));
-    Stream.of("21", "21.0.1", "21.0.2", "21.0.4").forEach(version -> checkOracleJDK("21", version));
-    Stream.of("20", "20.0.1", "20.0.2").forEach(version -> checkOracleJDK("20", version));
-    Stream.of("19", "19.0.1", "19.0.2").forEach(version -> checkOracleJDK("19", version));
-    Stream.of("18", "18.0.1", "18.0.1.1").forEach(version -> checkOracleJDK("18", version));
+    Stream.of("25", "25.0.1", "25.0.2").forEach(version -> checkOracleJDK("25", version));
+    Stream.of("21", "21.0.1", "21.0.2", "21.0.10").forEach(version -> checkOracleJDK("21", version));
+    /*
+     * The Oracle Technology Network License Agreement for Oracle Java SE used for
+     * JDK 17 updates 17.0.13 and greater is substantially different from prior
+     * Oracle JDK 17 licenses.
+     */
     Stream.of("17", "17.0.1", "17.0.2", "17.0.12").forEach(version -> checkOracleJDK("17", version));
   }
 
@@ -57,6 +57,21 @@ public class Test {
     checkJavaNetJDK("ea", "stable");
 
     System.out.println();
+    System.out.println("// jdk.java.net - Project Jextract - latest");
+    checkJavaNetJDK("jextract", "latest");
+
+    System.out.println();
+    System.out.println("// jdk.java.net - Project Leyden - latest");
+    // checkJavaNetJDK("leyden", "latest"); // only the following binaries are available
+    checkJDK("jdk.java.net", new Download.JDK("leyden", "latest", "linux", "aarch64", "tar.gz"));
+    checkJDK("jdk.java.net", new Download.JDK("leyden", "latest", "linux", "x64", "tar.gz"));
+    checkJDK("jdk.java.net", new Download.JDK("leyden", "latest", "macos", "aarch64", "tar.gz"));
+
+    System.out.println();
+    System.out.println("// jdk.java.net - Project Loom - latest");
+    checkJavaNetJDK("loom", "latest");
+
+    System.out.println();
     System.out.println("// jdk.java.net - Project Valhalla - latest");
     checkJavaNetJDK("valhalla", "latest");
   }
@@ -70,7 +85,9 @@ public class Test {
   }
 
   static void checkJavaNetJDK(String release, String version) {
+    checkJDK("jdk.java.net", new Download.JDK(release, version, "linux", "aarch64", "tar.gz"));
     checkJDK("jdk.java.net", new Download.JDK(release, version, "linux", "x64", "tar.gz"));
+    checkJDK("jdk.java.net", new Download.JDK(release, version, "macos", "aarch64", "tar.gz"));
     checkJDK("jdk.java.net", new Download.JDK(release, version, "macos", "x64", "tar.gz"));
     checkJDK("jdk.java.net", new Download.JDK(release, version, "windows", "x64", "zip"));
   }
