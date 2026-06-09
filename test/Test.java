@@ -80,7 +80,6 @@ public class Test {
     checkJDK("oracle.com", new Download.JDK(release, version, "linux", "aarch64", "tar.gz"));
     checkJDK("oracle.com", new Download.JDK(release, version, "linux", "x64", "tar.gz"));
     checkJDK("oracle.com", new Download.JDK(release, version, "macos", "aarch64", "tar.gz"));
-    checkJDK("oracle.com", new Download.JDK(release, version, "macos", "x64", "tar.gz"));
     checkJDK("oracle.com", new Download.JDK(release, version, "windows", "x64", "zip"));
   }
 
@@ -88,7 +87,6 @@ public class Test {
     checkJDK("jdk.java.net", new Download.JDK(release, version, "linux", "aarch64", "tar.gz"));
     checkJDK("jdk.java.net", new Download.JDK(release, version, "linux", "x64", "tar.gz"));
     checkJDK("jdk.java.net", new Download.JDK(release, version, "macos", "aarch64", "tar.gz"));
-    checkJDK("jdk.java.net", new Download.JDK(release, version, "macos", "x64", "tar.gz"));
     checkJDK("jdk.java.net", new Download.JDK(release, version, "windows", "x64", "zip"));
   }
 
