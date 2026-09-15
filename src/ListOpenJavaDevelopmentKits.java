@@ -40,17 +40,16 @@ class ListOpenJavaDevelopmentKits {
   static final List<Page> PAGES =
       List.of(
           // JDK: General-Availability Release
-          Page.of("26") // https://jdk.java.net/26
-              .withAlias("26,latest")
+          Page.of("27") // https://jdk.java.net/27
+              .withAlias("27,latest")
               .withAlias("ga,latest"),
           // JDK: Early-Access Releases (latest)
           Page.of("28") // https://jdk.java.net/28
               .withAlias("28,latest")
+              .withAlias("ea,stable")
               .withAlias("ea,latest"),
           // JDK: Early-Access Releases (stable)
-          Page.of("27") // https://jdk.java.net/27
-              .withAlias("27,latest")
-              .withAlias("ea,stable"),
+
           // Named projects, usually in Early-Access phase
           Page.of("jextract") // https://jdk.java.net/jextract
               .withAlias("jextract,latest")
