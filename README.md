@@ -9,7 +9,7 @@ JDKs built by Oracle are [Oracle JDK](https://www.oracle.com/java/technologies/d
 | Input Name            | Default Value | Description                                                     |
 |-----------------------|--------------:|-----------------------------------------------------------------|
 | `website`             |  `oracle.com` | From where the JDK should be downloaded.                        |
-| `release`             |          `26` | Java feature release number or name of an Early-Access project. |
+| `release`             |          `27` | Java feature release number or name of an Early-Access project. |
 | `version`             |      `latest` | An explicit version of a Java release.                          |
 | `install`             |        `true` | Install the downloaded JDK archive file.                        |
 | `install-as-version`  |       _empty_ | Control the value passed as `java-version`                      |
