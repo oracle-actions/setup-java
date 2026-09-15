@@ -46,11 +46,10 @@ class ListOpenJavaDevelopmentKits {
           // JDK: Early-Access Releases (latest)
           Page.of("28") // https://jdk.java.net/28
               .withAlias("28,latest")
-              .withAlias("ea,stable"),
+              .withAlias("ea,stable")
+              .withAlias("ea,latest"),
           // JDK: Early-Access Releases (stable)
-          Page.of("28") // https://jdk.java.net/28
-                  .withAlias("28,latest")
-                  .withAlias("ea,latest"),
+
           // Named projects, usually in Early-Access phase
           Page.of("jextract") // https://jdk.java.net/jextract
               .withAlias("jextract,latest")
